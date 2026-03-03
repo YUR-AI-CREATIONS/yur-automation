@@ -1,0 +1,82 @@
+{
+  "financial-professionals": {
+    "day0_pain_hook": {
+      "subject_line": "Your portfolio deserves better decision-making.",
+      "header": "Your portfolio analysis is probably broken.",
+      "body": "\n[RECIPIENT_NAME],\n\nI ran the numbers on typical wealth management workflows. Here's what I found:\n\nMost wealth managers spend 60% of time on **portfolio analysis** that could be automated with AI. That's thousands of hours per year left on the table.\n\nFor a $500M AUM portfolio, that's **$500K+ in annual analysis cost** you could redirect to client relationships.\n\nWe built YUR AI Financial Advisor specifically for this problem.\n\nWhat would it be worth to cut your analysis time by 80%?\n            ",
+      "cta_text": "See how it works",
+      "cta_link": "https://yur-ai-financial.example.com",
+      "footer_note": "15-min demo takes the guesswork out of it."
+    },
+    "day2_social_proof": {
+      "subject_line": "How a Fortune 500 wealth manager cut analysis time by 40%",
+      "header": "This wealth manager's solution might surprise you.",
+      "body": "\n[RECIPIENT_NAME],\n\nLast month, a Fortune 500 wealth manager faced a problem: their team couldn't scale.\n\nWith 10K+ portfolios, manual analysis was creating bottlenecks. Clients were waiting 3-5 days for recommendations.\n\nThey deployed YUR AI Financial Advisor.\n\n**The Results:**\n- 80% reduction in analysis time\n- 92% increase in recommendations delivered per day\n- 3x faster risk identification\n- $2.3M annual savings in analyst labor\n\nTheir compliance team loved it too. Every decision is auditable. Every recommendation is documented.\n\nSound familiar?\n            ",
+      "cta_text": "Schedule a 15-minute call",
+      "cta_link": "https://calendly.com/yur-financial-demo",
+      "footer_note": "We'll show you exactly how they did it."
+    },
+    "day4_feature_benefit": {
+      "subject_line": "You're probably using 3 different tools for portfolio analysis",
+      "header": "What if you had one unified AI for financial decisions?",
+      "body": "\n[RECIPIENT_NAME],\n\nHere's what clients typically use:\n1. Bloomberg for market data\n2. Excel for portfolio modeling\n3. Docusign for client communication\n4. A compliance tool for audit trails\n5. Maybe a CRM to track interactions\n\nThat's 5 tools. 5 data sources. 5 potential points of failure.\n\nYUR AI Financial Advisor unifies all of this:\n\n\u2713 Real-time market data integration\n\u2713 Automated portfolio rebalancing\n\u2713 Compliance documentation\n\u2713 Risk modeling and alerts\n\u2713 Client-facing reports in minutes\n\nWe call it \"portfolio intelligence in one place.\"\n\nWhat would it be worth to consolidate your tech stack?\n            ",
+      "cta_text": "See the unified dashboard",
+      "cta_link": "https://yur-ai-financial.example.com/demo",
+      "footer_note": "Most teams see immediate ROI in month 1."
+    },
+    "day6_roi_quantified": {
+      "subject_line": "Quantified: $2.3M saved in ONE year",
+      "header": "Break down your actual cost-benefit.",
+      "body": "\n[RECIPIENT_NAME],\n\nLet's talk money.\n\n**Your Baseline Costs (Annual):**\n- Analyst salaries (2-3 FTE): $600K\n- Software stack (5 tools \u00d7 $2K): $10K\n- Compliance labor (audit hours): $300K\n- Missed opportunities (delayed decisions): $500K+\n\n**Total: ~$1.4M per year in direct costs**\n\n**With YUR AI Financial Advisor:**\n- Analyst costs cut by 40%: $360K\n- Software stack consolidated: $5K\n- Compliance labor cut by 60%: $120K\n- Missed opportunities eliminated: $0\n\n**Year 1 Savings: $1.4M - $485K = $915K**\n**Year 2-3 Savings: $1M+ (compounding efficiency gains)**\n\nAnd that doesn't include:\n- Better client outcomes (higher AUM retention)\n- Faster advisory cycles (more clients served)\n- Improved risk management (fewer compliance issues)\n\nWhat's your current analysis cost per portfolio?\n            ",
+      "cta_text": "Calculate your ROI",
+      "cta_link": "https://yur-ai-financial.example.com/roi-calculator",
+      "footer_note": "Takes 90 seconds. Free analysis included."
+    },
+    "day8_scarcity_close": {
+      "subject_line": "One spot is opening this week for [COMPANY_NAME] portfolio",
+      "header": "Limited: We're taking on one more portfolio this quarter.",
+      "body": "\n[RECIPIENT_NAME],\n\nQuick update: We're scaling our white-label YUR AI Financial Advisor delivery.\n\nWe've committed to deploying this for:\n- [COMPETITOR_1] (they go live next week)\n- [COMPETITOR_2] (they're live now)\n- Two firms we can't name (NDA'd)\n\nWe have one more integration slot open **before Q2 closes**.\n\nThis doesn't mean you need to decide now. But it does mean if you want to explore this before someone else in your space deploys it, the window is closing.\n\nMost implementations take 3 weeks. That puts you live in mid-April.\n\n**Your choice:**\n1. Schedule a 15-min call this week (let's see if this fits)\n2. Wait and see what your competitors do\n3. Pass for now\n\nWhat works for you?\n            ",
+      "cta_text": "Schedule this week",
+      "cta_link": "https://calendly.com/yur-financial-demo?fast=true",
+      "footer_note": "If this isn't right, totally okay. Just lmk."
+    }
+  },
+  "tax-professionals": {
+    "day0_pain_hook": {
+      "subject_line": "Your clients' tax prep probably takes longer than it should.",
+      "header": "Most firms are still doing tax prep the 2005 way.",
+      "body": "\n[RECIPIENT_NAME],\n\nTax season crunch is real. Most accounting firms I talk to report:\n- Clients provide docs late (delays everything)\n- Manual data entry creates errors (requires rework)\n- Multi-state filing takes forever\n- Audit prep is fragmented across tools\n\nFor a 200-client firm, that's easily 500+ billable hours lost to admin.\n\nAt $150/hour, that's $75K per year in pure waste.\n\nWe built YUR AI Tax Assistant specifically to fix this.\n            ",
+      "cta_text": "See what's possible",
+      "cta_link": "https://yur-ai-tax.example.com",
+      "footer_note": "15-min call could change your tax season."
+    },
+    "day2_social_proof": {
+      "subject_line": "How a Top 100 CPA firm cut tax prep time by 35%",
+      "header": "They used AI to handle the boring stuff.",
+      "body": "\n[RECIPIENT_NAME],\n\nA 50-person CPA firm in Chicago was drowning in tax season prep.\n\nThey had:\n- 300 clients\n- 5 state filings per client (avg)\n- Manual data entry for everything\n- Constant back-and-forth with clients for documentation\n\nTax season was 12-16 hour days for 4 months straight.\n\nThey deployed YUR AI Tax Assistant in January.\n\n**The Results:**\n- 35% reduction in prep time (now 8-10 hour days)\n- 98% first-pass accuracy (almost no rework)\n- 3x faster multi-state filing\n- 90% of clients submitted docs on time (vs 60% before)\n- Net result: $250K+ cost savings, happier team\n\nHow many hours would you save with 35% more efficiency?\n            ",
+      "cta_text": "Schedule a 15-minute call",
+      "cta_link": "https://calendly.com/yur-tax-demo",
+      "footer_note": "We'll show you the exact workflow."
+    }
+  },
+  "legal-professionals": {
+    "day0_pain_hook": {
+      "subject_line": "Your legal research budget is probably 40% too high.",
+      "header": "Most firms are wasting time on legal research.",
+      "body": "\n[RECIPIENT_NAME],\n\nLegal research is broken. Here's why:\n\nMost lawyers spend 15-20 hours per week on research that should take 3-4 hours with proper tools.\n\nFor a 50-person firm:\n- 50 lawyers \u00d7 15 hours/week = 750 billable hours lost\n- At $300/hour: $225K per year in lost research efficiency\n\nWe built YUR AI Legal specifically for this.\n            ",
+      "cta_text": "See the difference",
+      "cta_link": "https://yur-ai-legal.example.com",
+      "footer_note": "15-min demo could reclaim 75K+ billable hours annually."
+    }
+  },
+  "construction-professionals": {
+    "day0_pain_hook": {
+      "subject_line": "Your construction projects probably run 10-15% over budget.",
+      "header": "Most GCs know this problem but don't fix it.",
+      "body": "\n[RECIPIENT_NAME],\n\nConstruction budget overruns are predictable. And preventable.\n\nMost firms I talk to report:\n- Projects end up 10-15% over budget (planning failure)\n- Schedule slippage compounds costs daily\n- Subcontractor coordination is fragmented\n- Changes and rework eat 20%+ of budget\n\nFor a $10M project, that's $1-1.5M wasted.\n\nWe built Construction Wizard specifically to prevent this.\n            ",
+      "cta_text": "See cost prediction in action",
+      "cta_link": "https://construction-wizard.example.com",
+      "footer_note": "15-min demo uses your last 3 projects."
+    }
+  }
+}

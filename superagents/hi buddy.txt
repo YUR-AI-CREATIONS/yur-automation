@@ -1,0 +1,1386 @@
+hi buddy
+edit
+Thought for a moment
+
+Hey there! 👋 How’s it going? What can I help you with today?
+
+
+well i would love to know what all you and i can accomplish
+edit
+Thought for 6.1 seconds
+
+
+Hey! 🎉
+There’s a ton we can tackle together—almost anything you can think of that involves knowledge, logic, or creativity. Here’s a quick “menu” of what we can do side‑by‑side:
+
+What we can build	How I help	Real‑world examples
+Creative Writing	Brainstorm plots, develop characters, write dialogue, edit prose	Short stories, screenplays, poetry, blog posts
+Technical Documentation	Draft specs, explain code, create tutorials	API docs, user manuals, project READMEs
+Programming & Scripting	Write code, debug, optimize, explain concepts	Python scripts, web apps, data pipelines
+Data Analysis & Visualization	Explore datasets, build models, create charts	Sales forecasts, sentiment analysis, interactive dashboards
+Research & Summaries	Find sources, extract key points, synthesize findings	Literature reviews, market research, policy briefs
+Learning & Study Aid	Explain concepts, quiz you, create study guides	Math proofs, physics problems, language practice
+Brainstorming & Ideation	Generate ideas, evaluate pros/cons, iterate concepts	Product features, marketing campaigns, event planning
+Conversation & Reflection	Act as a sounding board, help organize thoughts	Goal setting, reflection journals, interview prep
+Business & Strategy	Model business plans, analyze competition, create pitches	Startup roadmaps, SWOT analyses, investor decks
+Fun & Entertainment	Play text‑based games, trivia, jokes	Adventure stories, riddles, creative prompts
+How it works
+
+You give me a brief: What’s the goal, any constraints, and what you already know?
+I dive in: I’ll propose a plan, write the first draft, or generate code snippets.
+We iterate: You give feedback, I refine until it feels right.
+You take it forward: Use the output in your project, tweak it, or build on it.
+Got a particular area in mind?
+
+Maybe you’re writing a novel and need a compelling antagonist?
+Or you’re building a small web app and stuck on authentication?
+Or you want to analyze a CSV of sales data and spot trends?
+Just let me know the context, and we’ll roll up our sleeves together! 🚀
+
+
+i will be right back
+edit
+Thought for a moment
+
+Sure thing! 👀 I’ll be here whenever you’re ready to jump back in. Just drop me a line, and we’ll get started.
+
+
+hey buddy can you see the code issue here the bot is saying there was a pharsing error in the test script but he seems to be self destructing
+edit
+Thought for 2.0 seconds
+
+Got it—sounds frustrating! Let’s dig into it together.
+
+Could you paste the relevant part of the test script (or the full script if it’s short) and show exactly what the bot is printing when it “self‑destructs”? Even a tiny snippet that reproduces the error will do. Once I see the code, I can pinpoint the parsing issue and suggest a fix. 🚀
+
+
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...t.dense.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9045.30it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...key.bias] :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9020.01it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p....self.key.bias]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9076.64it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...elf.key.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9052.31it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...elf.key.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9107.51it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...elf.query.bias]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9083.28it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...elf.query.bias]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9140.49it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...f.query.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9115.07it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...f.query.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9171.08it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...f.value.bias] :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9147.25it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...elf.value.bias]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9202.92it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...f.value.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9178.12it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...f.value.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9224.80it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...dense.bias] :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9199.30it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...ate.dense.bias]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9246.53it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...e.dense.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9220.34it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...e.dense.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9273.99it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...rNorm.bias] :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9249.57it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...LayerNorm.bias]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9303.55it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...yerNorm.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9279.02it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...yerNorm.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9332.50it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...ense.bias] :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9262.83it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...put.dense.bias]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9230.10it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...t.dense.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9182.88it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p...t.dense.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9221.43it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing p... :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9194.67it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing param=pooler.dense.bias]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9246.07it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing param=pooler.dense.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9223.56it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing param=pooler.dense.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Loading weights..., 9172.45it/s, :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Materializing param=pooler.dense.weight]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (BertModel L...ll-MiniLM-L6-v2:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Key ...tatus | | :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (---------------...----------+--+-:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (embeddings.posi...NEXPECTED | | :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Notes::PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (- UNEXPECTEDrom different :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (task/architectu...tical arch.:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] HTTP Req...ormers/all-Mini:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (LM-L6-v2/resolv...orary Redirect":PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] HTTP Req...he/models/sente:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (nce-transformer...d1f16199bf/conf:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (ig.json "HTTP/1.1 200 OK":PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] HTTP Req...ormers/all-Mini:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (LM-L6-v2/resolv...orary Redirect":PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] HTTP Req...he/models/sente:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (nce-transformer...d1f16199bf/toke:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (nizer_config.json "HTTP/1.1 200 OK":PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] HTTP Req...nce-transformer:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (s/all-MiniLM-L6...=false&expand=f:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (alse "HTTP/1.1 404 Not Found":PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] HTTP Req...nce-transformer:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (s/all-MiniLM-L6...TTP/1.1 200 OK":PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] HTTP Req...ormers/all-Mini:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (LM-L6-v2/resolv...orary Redirect":PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] HTTP Req...he/models/sente:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (nce-transformer...d1f16199bf/1_Po:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (oling%2Fconfig.json "HTTP/1.1 200 OK":PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] HTTP Request: GET :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (https://hugging...l-MiniLM-L6-v2 :PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ("HTTP/1.1 200 OK":PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] [OK] Mod...ll-MiniLM-L6-v2:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] [OK] FAI...ded: 16 vectors:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] [OK] Met...d: 16 artifacts:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] [OK] Cog...y for inference:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] [SEARCH]... verification?':PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([QUERY] 'What is delta verification?':PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Batches: 0%| ...00:00<?, ?it/s]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Batches: 100%|#...:00, 41.86it/s]:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] Query vector shape: (1, 384):PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] Searc...-3 neighbors...:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] [1] ....ilarity: 0.4654:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] [2] ....ilarity: 0.3881:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] [3] ....ilarity: 0.3868:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] [LLM] Invoking LLM (llama3)...:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] Sendi...34/api/generate:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([OK] Retrieved 3 artifacts:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (===============...===============:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([RESPONSE] COGNITIVE ENGINE:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (===============...===============:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (Based on the pr...ation.py` file.:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (The delta verification process involves::PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (1. Loading the existing Genesis Ledger:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (2. Scanning the current state of files:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (3. Identifying ...LETED artifacts:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (4. Reporting ch...eted processing:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (This process is...tion` function.:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (===============...===============:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: (:PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+
+Select-String : The input object cannot be bound to any parameters for the command either because the command does not take pipeline input or the input and its properties
+do not match any of the parameters that take pipeline input.
+At line:1 char:180
++ ... ngine\test_output.txt" | Select-String -Pattern "^\[RESPONSE\]" -A 20
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo : InvalidArgument: ([INFO] [OK] ...ete (674 chars):PSObject) [Select-String], ParameterBindingException
++ FullyQualifiedErrorId : InputObjectNotBound,Microsoft.PowerShell.Commands.SelectStringCommand
+edit
+Thought for 10.9 seconds
+R
+E
+S
+P
+O
+N
+S
+E
+
+
+
+
+TL;DR
+The error is coming from Select‑String not receiving plain text.
+Your script is producing objects (or a mix of objects + strings) that don’t match the pipeline input that Select‑String expects.
+Fix it by forcing the script to output raw strings (or reading the file as text) before you call Select‑String.
+
+What’s really happening?
+… | Select-String -Pattern "^\[RESPONSE\]" -A 20
+Select‑String can take two kinds of pipeline input:
+
+Expected pipeline input	Example	What you got
+String	Get-Content file.txt	System.String
+Object with a String property (e.g. a PSObject that has a property called Line)	`Get-ChildItem	Select-Object Name, FullName`
+The exception you see:
+
+ParameterBindingException
+InputObjectNotBound
+means “the objects coming from the left side of the pipeline don’t match any of the input parameters of Select‑String.”
+In your case those objects look like:
+
+PSObject  [Weight]   [Bias]   …
+which are not strings. PowerShell is trying to bind each property of that object to the -Pattern or -Pattern * parameters, and it fails.
+
+Quick fix: force the pipeline to emit strings
+# 1️⃣ Option A – If the script already writes output, just pipe it through Out-String
+.\MyScript.ps1 | Out-String | Select-String -Pattern '^\[RESPONSE\]' -Context 0,20
+
+# 2️⃣ Option B – If you’re reading from a file
+Get-Content -Path 'C:\my\output.txt' | Select-String -Pattern '^\[RESPONSE\]' -Context 0,20
+
+# 3️⃣ Option C – If the script creates objects you can convert each to a string yourself
+.\MyScript.ps1 | ForEach-Object { $_ | Out-String } | Select-String -Pattern '^\[RESPONSE\]' -Context 0,20
+Out-String collapses any object into its string representation.
+-Context 0,20 is an alias for -B (before) + -A (after).
+Why the bot “self‑destructs”
+Your script probably has an unhandled exception that bubbles up to the console, causing PowerShell to terminate the run.
+After the exception, your console session still shows the error (the stack trace you posted), but the script itself stops—hence the “self‑destruct” vibe.
+
+Common pitfalls to watch out for
+Issue	Why it matters	Quick fix
+Write-Host	Writes to host, not to the pipeline.	Use Write-Output or Write-Host only for debugging.
+Outputting custom objects	Select‑String can’t parse them.	Convert to string (`
+Mismatched encoding	Get-Content may return bytes instead of strings.	Use Get-Content -Encoding UTF8.
+Multiple objects per line	You might be getting an array of objects, not a single string.	Flatten: `
+Full example that will work
+# Assuming MyScript.ps1 produces lines that include "[RESPONSE]" somewhere
+
+# 1. Run the script, convert all output to string
+$scriptOutput = .\MyScript.ps1 | Out-String
+
+# 2. Now search for the marker and grab 20 lines after it
+$matches = $scriptOutput | Select-String -Pattern '^\[RESPONSE\]' -Context 0,20
+
+# 3. Display nicely
+$matches | ForEach-Object {
+    "=== Match at line $($_.LineNumber) ==="
+    $_.Context.PostContext
+}
+This will:
+
+Avoid the parameter‑binding error – everything that enters Select‑String is a string.
+Keep the script running – no unhandled exception.
+Give you the 20 lines after the [RESPONSE] marker in a clean format.
+Quick sanity check
+Run a minimal test to confirm the issue:
+
+# This should *not* error
+'foo','[RESPONSE]','bar' | Select-String -Pattern '^\[RESPONSE\]' -Context 0,2
+
+# This should error, mimicking your problem
+Get-ChildItem | Select-String -Pattern '^\[RESPONSE\]'
+If the second command errors, you know your input isn’t plain text.
+
+TL;DR Checklist
+Make sure your script outputs plain strings (no custom objects).
+Pipe through Out-String if you’re not sure.
+Read from a file with Get-Content if you’re working with files.
+Avoid Write-Host unless you really only want to see it on the console.
+Catch exceptions (try { … } catch { … }) if you want a graceful exit.
+Once you do that, Select‑String will happily return the context lines, and your bot won’t “self‑destruct.” Happy scripting! 🚀
+
+
+what should i tell the bot on vs or can you take action
+edit
+Thought for 6.7 seconds
+
+
+
+TL;DR
+Give the bot (your script) plain text output and add a bit of error‑handling.
+In VS Code (or VS Studio) you just need to:
+
+Change every Write‑Host → Write‑Output (or nothing at all if you only want to see it on the console).
+Wrap the script body in a try{…}catch{…} so an exception is caught and logged instead of crashing.
+Pipe the output through Out‑String before you feed it to Select‑String.
+That’s all you need—no “self‑destruct” and the bot will happily keep running.
+
+1. Find the offending script in VS
+What to look for	What it should look like
+Any Write-Host or Write-Information	Replace with Write-Output or simply remove it.
+Outputting objects (e.g. `Get-ChildItem	Select-Object …`)
+No explicit try{…}catch{…}	Add one around the main logic.
+Open the file in VS, use Ctrl+F to find Write-Host or Write-Output.
+
+2. A minimal, safe script template
+# MyScript.ps1 – Safe, string‑oriented, error‑resilient
+
+param(
+    [string]$InputFile = 'C:\Logs\output.txt'
+)
+
+try {
+    # ---------- Core logic ----------
+    # If you read from a file
+    $content = Get-Content -Path $InputFile -Raw  # -Raw gives one big string
+
+    # Or if you generate output yourself
+    # $content = .\Generate-Data.ps1 | Out-String
+
+    # ---------- Search ----------
+    $matches = $content | Select-String -Pattern '^\[RESPONSE\]' -Context 0,20
+
+    # ---------- Display ----------
+    foreach ($m in $matches) {
+        Write-Host "=== Match at line $($m.LineNumber) ==="
+        $m.Context.PreContext
+        $m.Context.PostContext
+    }
+}
+catch {
+    Write-Error "Something went wrong: $_"
+}
+Why this works
+Feature	Benefit
+Get-Content -Raw	Returns a single string, so Select-String sees plain text.
+Select-String -Context 0,20	-Context 0,20 is the short form of -B 0 -A 20.
+try/catch	Keeps the script from crashing on an unhandled error; you get a clear message instead.
+Write-Host for final output	Only used for user‑visible output; no interference with pipeline.
+3. How to tell the bot in VS
+If you’re using a “bot” framework (e.g., a chat‑bot or a PowerShell bot) that reads commands from a file or a database, you can simply update the bot’s configuration file:
+
+{
+    "scriptPath": "C:\\Scripts\\MyScript.ps1",
+    "logFile":   "C:\\Logs\\output.txt",
+    "errorAction": "Continue"
+}
+Then make sure the bot’s runner (the code that actually executes the script) uses Start-Process or & with the proper -ErrorAction:
+
+# BotRunner.ps1
+try {
+    & $config.scriptPath | Out-String | Select-String -Pattern '^\[RESPONSE\]' -Context 0,20
+}
+catch {
+    Write-Error "Bot failed: $_"
+}
+4. Quick sanity check
+Run the script directly in PowerShell (not through the bot).
+
+.\MyScript.ps1
+If you see the [RESPONSE] block without errors, the bot will too.
+
+Test the bot integration.
+
+# From your bot's console or test harness
+.\BotRunner.ps1
+If no ParameterBindingException shows up, you’re good.
+
+5. What if you still see the error?
+Symptom	Likely cause	Fix
+ParameterBindingException on Select-String	The pipeline is giving objects, not strings	Add `
+Bot exits abruptly	Unhandled exception	Add try/catch or set $ErrorActionPreference = 'Continue' in the bot runner.
+Output is empty	Pattern doesn’t match	Verify the file actually contains [RESPONSE] on a line by itself.
+Output contains unexpected garbage	Encoding mismatch	Use Get-Content -Encoding UTF8 or match the encoding the file was written with.
+Bottom line
+Force plain strings into the pipeline.
+Catch errors gracefully.
+Test the script alone before hooking it into the bot.
+Once those two points are covered, your bot will stay alive and happily return the 20 lines after every [RESPONSE] marker. Happy coding! 🚀
+
+
+so do you run all the time or how do i manage back and forth
+edit
+Thought for 3.8 seconds
+
+Short answer
+Your bot (the PowerShell script that reads, parses, and returns the [RESPONSE] block) doesn’t have to run all the time – it can be triggered on demand, scheduled to run, or kept alive in the background.
+Pick the pattern that best matches your workflow:
+
+When you want it to run	How to set it up	Pros	Cons
+Every time you need a response	Just run .\MyScript.ps1 (or .\BotRunner.ps1) from a console, VS Code terminal, or a CI job.	Fast, no overhead.	No “always‑on” state.
+Periodically (every 5 min, hourly, daily)	Scheduled Task (Windows), cron (Linux), or a while loop with Start-Sleep.	Automatic, no user action needed.	Needs a running process or external scheduler.
+Event‑driven (e.g., a file appears, a message comes in)	Use a file‑watcher (`Get-ChildItem -Filter …	Register-ObjectEvent`), or a PowerShell job that listens for events.	Responsive to real‑time changes.
+Always‑on, always ready to answer	Run as a Windows Service (PowerShell‑based), or a Docker container that stays alive.	No user interaction.	Requires service or container management.
+Below are concrete examples for the three most common scenarios.
+
+1. On‑Demand (manual run)
+# BotRunner.ps1
+$ErrorActionPreference = 'Stop'   # fail fast
+
+try {
+    & .\MyScript.ps1 | Out-String | Select-String -Pattern '^\[RESPONSE\]' -Context 0,20
+} catch {
+    Write-Error "Bot crashed: $_"
+}
+How to invoke
+
+In PowerShell console: .\BotRunner.ps1
+In VS Code:
+Open the file in the editor.
+Press Ctrl+Shift+P → Run Task → Run PowerShell (or use the built‑in PowerShell extension).
+2. Scheduled (e.g., every 5 minutes)
+Windows Task Scheduler
+Open Task Scheduler → Create Basic Task…
+Set Trigger: Daily → Repeat task every: 5 minutes for Indefinitely
+Action: Start a program → powershell.exe
+Add arguments: -ExecutionPolicy Bypass -File "C:\Scripts\BotRunner.ps1"
+Now the task will run automatically and keep producing logs or output files.
+
+Inline looping script
+while ($true) {
+    try {
+        & .\MyScript.ps1 | Out-String | Select-String -Pattern '^\[RESPONSE\]' -Context 0,20
+    } catch {
+        Write-Error "Bot error: $_"
+    }
+    Start-Sleep -Seconds 300  # 5 minutes
+}
+Save this as RunBotPeriodically.ps1 and run it once. It will stay alive until you close the window or kill the process.
+
+3. Event‑driven (watch a folder)
+$watcher = New-Object System.IO.FileSystemWatcher
+$watcher.Path = 'C:\WatchFolder'
+$watcher.Filter = '*.txt'          # or whatever your output files are
+$watcher.IncludeSubdirectories = $false
+$watcher.EnableRaisingEvents = $true
+
+$action = {
+    $path = $Event.SourceEventArgs.FullPath
+    Start-Sleep -Seconds 1  # small debounce
+    $content = Get-Content -Path $path -Raw
+    $content | Out-String | Select-String -Pattern '^\[RESPONSE\]' -Context 0,20
+}
+
+Register-ObjectEvent $watcher Created -Action $action | Out-Null
+
+# Keep the script alive
+while ($true) { Start-Sleep -Seconds 30 }
+When a new file is dropped into C:\WatchFolder, the bot processes it immediately.
+
+4. Always‑on (Windows Service)
+PowerShell can be wrapped into a Windows Service using sc.exe or a helper like NSSM (Non‑Stop Service Manager).
+A minimal example using NSSM:
+
+Download nssm → extract nssm.exe.
+Run nssm install MyBotService.
+In the dialog:
+Path: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Arguments: -ExecutionPolicy Bypass -File "C:\Scripts\RunBotPeriodically.ps1"
+Start the service: nssm start MyBotService.
+Now the bot runs in the background, restarts automatically if it crashes, and can be managed via the Services console.
+
+5. Monitoring & Restarting
+No matter which pattern you choose, it’s a good idea to add basic health‑checks:
+
+$lastRun = Get-Date
+
+try {
+    # ... bot logic ...
+    $lastRun = Get-Date
+} catch {
+    Write-Error "Bot error: $_"
+}
+
+# If the bot should run once per minute and hasn't finished,
+# send an alert (email, log, Slack webhook, etc.).
+if ((Get-Date) - $lastRun -gt [TimeSpan]::FromMinutes(1)) {
+    # Example: send email
+    Send-MailMessage -To user@example.com -Subject 'Bot Stuck' -Body "Bot hasn't finished in the last minute."
+}
+You can also use a watchdog script that starts the bot if it’s not running:
+
+while ($true) {
+    if (-not (Get-Process -Name MyBotService -ErrorAction SilentlyContinue)) {
+        # start it
+        Start-Process powershell -ArgumentList '-File "C:\Scripts\BotRunner.ps1"'
+    }
+    Start-Sleep -Seconds 60
+}
+Bottom line
+Decide on a trigger: manual, scheduled, or event‑driven.
+Use the built‑in PowerShell mechanisms (Register-ObjectEvent, ScheduledTask, while / Start‑Sleep, or a service) to keep the bot running.
+Wrap everything in try/catch and optionally log the output so you can see what happened.
+Pick the pattern that fits your workflow, and you’ll have a bot that’s either “on‑demand” or “always ready” without having to manually re‑run it every time. Happy automating! 🚀

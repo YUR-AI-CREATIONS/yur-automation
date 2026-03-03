@@ -1,0 +1,145 @@
+# Environment and Configuration
+.env
+.env.local
+.env.*.local
+*.env
+
+# Sensitive Data
+**/credentials.json
+**/secrets.json
+**/*_key.json
+**/*_secret.json
+
+# Database Files
+data/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Logs and Audit Files
+*.log
+*.jsonl
+logs/
+audit/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.virtualenv
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Testing
+.tox/
+.nox/
+.coverage
+.pytest_cache/
+.cache/
+htmlcov/
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+
+# Documentation Build
+docs/_build/
+site/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Vector Indexes and ML Models
+*.faiss
+*.index
+*.vectors
+*.npz
+doc_index_*.json
+embeddings_cache/
+
+# Temporary Files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker
+.dockerignore
+Dockerfile.local
+
+# Personal Development Files
+test_*.py
+scratch_*.py
+debug_*.py
+playground/
+
+# Large Data Files
+*.csv
+*.xlsx
+*.pdf
+exports/
+backups/
+
+# Node.js (if any frontend components)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Terminal Output Files (Cursor-specific)
+terminals/
+
+# Cursor Plans (optional - remove if you want to include them)
+plans/
+
+# Local Configuration Overrides
+local_config.py
+local_settings.py
+config_local.py

@@ -1,0 +1,208 @@
+{
+  "version": "1.0",
+  "description": "Roosevelt Trinity Spine Governance Policies",
+  "created_at": "2026-02-11T00:00:00Z",
+  "authority_level": 1,
+  "governance_scopes": {
+    "internal": {
+      "name": "Internal Operations",
+      "description": "Code analysis, log processing, internal reports",
+      "auto_execute": true,
+      "requires_evidence": true,
+      "requires_human_approval": false,
+      "max_concurrent": 10,
+      "max_retries": 3,
+      "timeout_seconds": 300,
+      "cost_limit_usd": 10,
+      "rate_limit_per_hour": 100,
+      "allowed_actions": [
+        "analyze_code",
+        "run_tests",
+        "generate_reports",
+        "process_logs",
+        "cache_management"
+      ]
+    },
+    "external_low": {
+      "name": "External - Low Risk",
+      "description": "Public API calls, read-only operations",
+      "auto_execute": true,
+      "requires_evidence": true,
+      "requires_human_approval": false,
+      "max_concurrent": 5,
+      "max_retries": 2,
+      "timeout_seconds": 60,
+      "cost_limit_usd": 1,
+      "rate_limit_per_hour": 50,
+      "allowed_actions": [
+        "rest_api_read",
+        "webhook_receive",
+        "cache_query"
+      ]
+    },
+    "external_medium": {
+      "name": "External - Medium Risk",
+      "description": "Authenticated API operations, data mutations",
+      "auto_execute": false,
+      "requires_evidence": true,
+      "requires_human_approval": true,
+      "approval_timeout_hours": 1,
+      "max_concurrent": 2,
+      "max_retries": 1,
+      "timeout_seconds": 120,
+      "cost_limit_usd": 100,
+      "rate_limit_per_hour": 20,
+      "allowed_actions": [
+        "database_write",
+        "payment_authorization",
+        "user_notification"
+      ]
+    },
+    "external_high": {
+      "name": "External - High Risk",
+      "description": "System deployment, credential rotation, resource deletion",
+      "auto_execute": false,
+      "requires_evidence": true,
+      "requires_human_approval": true,
+      "approval_timeout_hours": 24,
+      "requires_mfa": true,
+      "requires_security_review": true,
+      "max_concurrent": 1,
+      "max_retries": 0,
+      "timeout_seconds": 600,
+      "cost_limit_usd": 10000,
+      "rate_limit_per_hour": 5,
+      "allowed_actions": [
+        "system_deploy",
+        "credential_rotation",
+        "resource_delete",
+        "permission_grant",
+        "policy_change"
+      ]
+    },
+    "restricted": {
+      "name": "Restricted",
+      "description": "Manual-only operations, always require human approval",
+      "auto_execute": false,
+      "requires_evidence": true,
+      "requires_human_approval": true,
+      "approval_timeout_hours": 2,
+      "requires_mfa": true,
+      "requires_security_review": true,
+      "requires_audit_trail": true,
+      "allowed_actions": [
+        "keypair_generation",
+        "policy_override",
+        "governance_change",
+        "emergency_shutdown"
+      ]
+    }
+  },
+  "evidence_requirements": {
+    "blake_birthmark": {
+      "required": true,
+      "description": "Deterministic mission identity proof"
+    },
+    "intent_verification": {
+      "required": true,
+      "description": "Verify intent matches governance scope"
+    },
+    "pqc_signature": {
+      "required": true,
+      "description": "Dilithium3 quantum-resistant signature"
+    },
+    "audit_trail": {
+      "required": true,
+      "retention_days": 365
+    }
+  },
+  "rate_limiting": {
+    "enabled": true,
+    "per_system": true,
+    "enforcement": "strict"
+  },
+  "cost_controls": {
+    "enabled": true,
+    "currency": "USD",
+    "enforcement": "hard_limit"
+  },
+  "auto_healing": {
+    "enabled": true,
+    "strategies": [
+      "retry",
+      "restart",
+      "rollback",
+      "spawn_replacement",
+      "escalate_to_human"
+    ]
+  },
+  "ouroboros_config": {
+    "enabled": true,
+    "audit_interval_seconds": 300,
+    "max_retries": 3,
+    "health_check_timeout_seconds": 30,
+    "regeneration_log_limit": 1000
+  },
+  "pqc_config": {
+    "enabled": true,
+    "algorithm": "dilithium3",
+    "key_encapsulation": "kyber768",
+    "fallback_to_hmac": true
+  },
+  "system_spawner": {
+    "enabled": true,
+    "systems": [
+      {
+        "id": "yur_ai",
+        "name": "YUR-AI",
+        "spawn_schedule": "0 0 * * *",
+        "auto_heal": true,
+        "replicas": 3
+      },
+      {
+        "id": "wav",
+        "name": "WAV",
+        "spawn_schedule": "0 0 * * *",
+        "auto_heal": true,
+        "replicas": 2
+      },
+      {
+        "id": "wcc",
+        "name": "WCC",
+        "spawn_schedule": "0 0 * * *",
+        "auto_heal": true,
+        "replicas": 1
+      },
+      {
+        "id": "sentinel",
+        "name": "Sentinel",
+        "spawn_schedule": "0 */6 * * *",
+        "auto_heal": true,
+        "replicas": 2
+      }
+    ]
+  },
+  "escalation_rules": {
+    "high_error_rate": {
+      "threshold": 0.05,
+      "window_minutes": 5,
+      "action": "page_oncall"
+    },
+    "repeated_failures": {
+      "threshold": 3,
+      "window_hours": 1,
+      "action": "escalate_to_manager"
+    },
+    "cost_overrun": {
+      "threshold_percent": 110,
+      "action": "halt_and_review"
+    }
+  },
+  "compliance": {
+    "soc2": true,
+    "hipaa": false,
+    "pci_dss": true,
+    "gdpr": true,
+    "require_audit_logging": true
+  }
+}

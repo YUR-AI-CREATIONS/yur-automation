@@ -1,0 +1,146 @@
+version: '3.8'
+
+# Superagent Sales Framework + Trinity Integration
+# Deploy entire sales automation system with one command:
+#   docker-compose -f docker-compose.superagents.yml up -d
+
+services:
+  # Main superagent orchestrator
+  # Runs all 8 agents (prospector, emailer, call handler, etc)
+  superagents:
+    build:
+      context: .
+      dockerfile: superagents/Dockerfile
+    container_name: trinity-superagents
+    
+    environment:
+      # Trinity Backend (already live on Render)
+      TRINITY_API_URL: https://yur-ai-api.onrender.com
+      TRINITY_API_KEY: ${TRINITY_API_KEY}
+      
+      # OpenAI (for personalization)
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      
+      # Email Provider
+      EMAIL_PROVIDER: sendgrid
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      FROM_EMAIL: ${FROM_EMAIL:-sales@yourcompany.com}
+      FROM_NAME: Trinity Sales
+      
+      # CRM Integration
+      HUBSPOT_API_KEY: ${HUBSPOT_API_KEY}
+      HUBSPOT_PORTAL_ID: ${HUBSPOT_PORTAL_ID}
+      
+      # LinkedIn (optional - for prospecting)
+      LINKEDIN_ACCESS_TOKEN: ${LINKEDIN_ACCESS_TOKEN:-}
+      LINKEDIN_ORG_ID: ${LINKEDIN_ORG_ID:-}
+      
+      # Crunchbase (optional - for research)
+      CRUNCHBASE_API_KEY: ${CRUNCHBASE_API_KEY:-}
+      
+      # Calendar (optional - for scheduling)
+      CALENDLY_TOKEN: ${CALENDLY_TOKEN:-}
+      
+      # Phone (optional - for call handler)
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID:-}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-}
+      TWILIO_PHONE_NUMBER: ${TWILIO_PHONE_NUMBER:-}
+      
+      # Your Details (personalizes outreach)
+      YOUR_NAME: ${YOUR_NAME:-Jeremy}
+      YOUR_TITLE: ${YOUR_TITLE:-Co-Founder & CEO}
+      YOUR_PHONE: ${YOUR_PHONE:-}
+      COMPANY_NAME: ${COMPANY_NAME:-YUR-AI}
+      COMPANY_WEBSITE: ${COMPANY_WEBSITE:-https://yur-ai.com}
+      PRODUCT_NAME: ${PRODUCT_NAME:-Trinity Spine}
+      PRODUCT_PRICE: ${PRODUCT_PRICE:-50000}
+      
+      # Logging
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      LOG_FILE: /app/logs/superagents.log
+      
+      # Agent Limits
+      DAILY_MAX_EMAILS: 500
+      DAILY_MAX_CALLS: 100
+      DAILY_MAX_PROPOSALS: 20
+    
+    # Volume for persistent logs
+    volumes:
+      - superagents_logs:/app/logs
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Health check (every 60 seconds)
+    healthcheck:
+      test: ["CMD", "python", "-c", 
+             "import asyncio; from superagents.core.trinity_client import TrinityClient; print(asyncio.run(TrinityClient().health_check()))"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    
+    # Resource limits (adjust for your infrastructure)
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+    
+    # Network
+    networks:
+      - trinity-network
+    
+    # Logging driver
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Optional: Monitoring stack (Prometheus + Grafana)
+# Uncomment to add monitoring
+# 
+# prometheus:
+#   image: prom/prometheus:latest
+#   container_name: prometheus
+#   volumes:
+#     - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+#     - prometheus_data:/prometheus
+#   command:
+#     - '--config.file=/etc/prometheus/prometheus.yml'
+#   ports:
+#     - "9090:9090"
+#   networks:
+#     - trinity-network
+#
+# grafana:
+#   image: grafana/grafana:latest
+#   container_name: grafana
+#   environment:
+#     GF_SECURITY_ADMIN_PASSWORD: admin
+#   ports:
+#     - "3000:3000"
+#   volumes:
+#     - grafana_data:/var/lib/grafana
+#   networks:
+#     - trinity-network
+#   depends_on:
+#     - prometheus
+
+# Volumes for persistent storage
+volumes:
+  superagents_logs:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+# Network for inter-container communication
+networks:
+  trinity-network:
+    driver: bridge

@@ -1,0 +1,791 @@
+{
+  "extraction_date": "2026-02-12T05:37:46.993920",
+  "total_verticals": 22,
+  "verticals": [
+    {
+      "vertical_id": "yur-ai-financial-advisor",
+      "directory_path": "D:\\YUR AI Financial Advisor",
+      "display_name": "YUR AI Financial Advisor",
+      "industry_cluster": "Financial Services",
+      "sub_industries": [
+        "Wealth Management",
+        "Investment Advisory",
+        "Asset Management"
+      ],
+      "positioning_statement": "Transform financial services with AI-powered wealth management",
+      "key_features": [
+        "AI-driven portfolio analysis",
+        "Real-time market monitoring",
+        "Compliance automation",
+        "Predictive risk modeling",
+        "Personalized client reporting"
+      ],
+      "pain_points": [
+        "Portfolio complexity management",
+        "Regulatory compliance tracking",
+        "Risk analysis automation",
+        "Client communication at scale",
+        "Performance reporting"
+      ],
+      "target_buyers": [
+        "CFO",
+        "CRO",
+        "Portfolio Manager",
+        "Wealth Manager",
+        "Investment Director"
+      ],
+      "email_segment": "financial-professionals",
+      "landing_page_variant": "financial-advisor.html",
+      "extracted_at": "2026-02-12T05:37:46.992283",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-tax-assistant",
+      "directory_path": "D:\\YUR AI tax ASSISTANT",
+      "display_name": "YUR AI tax ASSISTANT",
+      "industry_cluster": "Financial Services",
+      "sub_industries": [
+        "Tax Accounting",
+        "Tax Planning",
+        "Compliance"
+      ],
+      "positioning_statement": "Transform financial services with AI-powered tax accounting",
+      "key_features": [
+        "Tax code knowledge automation",
+        "Audit preparation acceleration",
+        "Multi-state compliance tracking",
+        "Client communication templates",
+        "Deadline reminder system"
+      ],
+      "pain_points": [
+        "Tax code complexity",
+        "Compliance burden",
+        "Client audit preparation",
+        "Multi-jurisdiction tracking",
+        "Deadline management"
+      ],
+      "target_buyers": [
+        "Tax Manager",
+        "CPA",
+        "Accounting Director",
+        "CFO",
+        "Compliance Officer"
+      ],
+      "email_segment": "tax-professionals",
+      "landing_page_variant": "tax-accounting.html",
+      "extracted_at": "2026-02-12T05:37:46.992355",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "crypto-pulse",
+      "directory_path": "D:\\Crypto Pulse",
+      "display_name": "Crypto Pulse",
+      "industry_cluster": "Financial Services",
+      "sub_industries": [
+        "Cryptocurrency",
+        "Blockchain",
+        "Web3"
+      ],
+      "positioning_statement": "Transform financial services with AI-powered cryptocurrency",
+      "key_features": [
+        "Real-time market analytics",
+        "Portfolio rebalancing automation",
+        "Crypto tax reporting",
+        "Smart contract analysis",
+        "Web3 risk scoring"
+      ],
+      "pain_points": [
+        "Market volatility tracking",
+        "Portfolio rebalancing",
+        "Tax reporting for crypto",
+        "Smart contract monitoring",
+        "Risk assessment in Web3"
+      ],
+      "target_buyers": [
+        "Crypto Portfolio Manager",
+        "Blockchain Developer",
+        "DeFi Analyst",
+        "Web3 Entrepreneur"
+      ],
+      "email_segment": "crypto-professionals",
+      "landing_page_variant": "crypto-web3.html",
+      "extracted_at": "2026-02-12T05:37:46.992405",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "karmascoreai",
+      "directory_path": "D:\\KarmaScoreAI",
+      "display_name": "KarmaScoreAI",
+      "industry_cluster": "Financial Services",
+      "sub_industries": [
+        "Credit Scoring",
+        "Lending",
+        "Risk Management"
+      ],
+      "positioning_statement": "Transform financial services with AI-powered credit scoring",
+      "key_features": [
+        "AI credit scoring",
+        "Fraud detection system",
+        "Underwriting automation",
+        "Default prediction modeling",
+        "Bias mitigation"
+      ],
+      "pain_points": [
+        "Credit risk assessment",
+        "Fraud detection",
+        "Underwriting efficiency",
+        "Default prediction",
+        "Decision consistency"
+      ],
+      "target_buyers": [
+        "Lending Director",
+        "Underwriter",
+        "Risk Manager",
+        "Chief Credit Officer"
+      ],
+      "email_segment": "lending-professionals",
+      "landing_page_variant": "lending-risk.html",
+      "extracted_at": "2026-02-12T05:37:46.992428",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-medical-assistant",
+      "directory_path": "D:\\YUR AI Medical assistant",
+      "display_name": "YUR AI Medical assistant",
+      "industry_cluster": "Healthcare",
+      "sub_industries": [
+        "Medical Practice",
+        "Healthcare Administration",
+        "Clinical Documentation"
+      ],
+      "positioning_statement": "Transform healthcare with AI-powered medical practice",
+      "key_features": [
+        "Clinical documentation automation",
+        "Patient communication AI",
+        "Decision support system",
+        "Appointment optimization",
+        "HIPAA-compliant operations"
+      ],
+      "pain_points": [
+        "Documentation burden",
+        "Patient communication lag",
+        "Clinical decision support",
+        "Appointment scheduling",
+        "Compliance with regulations"
+      ],
+      "target_buyers": [
+        "Physician",
+        "Practice Manager",
+        "Medical Director",
+        "Hospital Administrator"
+      ],
+      "email_segment": "healthcare-professionals",
+      "landing_page_variant": "medical-healthcare.html",
+      "extracted_at": "2026-02-12T05:37:46.992469",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "air-savior",
+      "directory_path": "D:\\Air Savior",
+      "display_name": "Air Savior",
+      "industry_cluster": "Healthcare",
+      "sub_industries": [
+        "Aviation Medicine",
+        "Emergency Response",
+        "Disaster Management"
+      ],
+      "positioning_statement": "Transform healthcare with AI-powered aviation medicine",
+      "key_features": [
+        "Emergency dispatch AI",
+        "Triage optimization",
+        "Resource routing",
+        "Crisis communication center",
+        "Post-incident analysis"
+      ],
+      "pain_points": [
+        "Emergency response coordination",
+        "Triage optimization",
+        "Resource allocation",
+        "Communication in crisis",
+        "Decision-making under pressure"
+      ],
+      "target_buyers": [
+        "Emergency Director",
+        "EMS Chief",
+        "Disaster Coordinator",
+        "Hospital CEO"
+      ],
+      "email_segment": "emergency-response",
+      "landing_page_variant": "emergency-response.html",
+      "extracted_at": "2026-02-12T05:37:46.992504",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-legal",
+      "directory_path": "D:\\YUR AI Legal",
+      "display_name": "YUR AI Legal",
+      "industry_cluster": "Legal",
+      "sub_industries": [
+        "Law Practice",
+        "Legal Department",
+        "Corporate Counsel"
+      ],
+      "positioning_statement": "Transform legal with AI-powered law practice",
+      "key_features": [
+        "Legal research AI",
+        "Contract analysis automation",
+        "Compliance monitoring system",
+        "Legal memoranda generation",
+        "Document automation"
+      ],
+      "pain_points": [
+        "Legal research efficiency",
+        "Contract analysis time",
+        "Compliance monitoring",
+        "Legal memoranda generation",
+        "Document review bottleneck"
+      ],
+      "target_buyers": [
+        "Partner",
+        "General Counsel",
+        "In-House Counsel",
+        "Legal Director"
+      ],
+      "email_segment": "legal-professionals",
+      "landing_page_variant": "legal-expert.html",
+      "extracted_at": "2026-02-12T05:37:46.992542",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-corporate",
+      "directory_path": "D:\\YUR AI Corporate",
+      "display_name": "YUR AI Corporate",
+      "industry_cluster": "Legal",
+      "sub_industries": [
+        "Corporate Governance",
+        "Business Strategy",
+        "Executive Operations"
+      ],
+      "positioning_statement": "Transform legal with AI-powered corporate governance",
+      "key_features": [
+        "Governance automation",
+        "Strategic planning AI",
+        "Board reporting system",
+        "Stakeholder communication platform",
+        "Corporate compliance tracking"
+      ],
+      "pain_points": [
+        "Board compliance complexity",
+        "Strategic planning time investment",
+        "Executive reporting burden",
+        "Corporate governance tracking",
+        "Stakeholder communication"
+      ],
+      "target_buyers": [
+        "CEO",
+        "COO",
+        "General Counsel",
+        "Board Member"
+      ],
+      "email_segment": "corporate-executives",
+      "landing_page_variant": "corporate-governance.html",
+      "extracted_at": "2026-02-12T05:37:46.992580",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "construction-wizard",
+      "directory_path": "D:\\Construction Wizard",
+      "display_name": "Construction Wizard",
+      "industry_cluster": "Construction & Real Estate",
+      "sub_industries": [
+        "General Contracting",
+        "Project Management",
+        "Building"
+      ],
+      "positioning_statement": "Transform construction & real estate with AI-powered general contracting",
+      "key_features": [
+        "Project scheduling AI",
+        "Budget forecasting",
+        "Subcontractor management",
+        "Compliance tracking",
+        "Quality control automation"
+      ],
+      "pain_points": [
+        "Project timeline management",
+        "Budget tracking complexity",
+        "Subcontractor coordination",
+        "Permit and compliance tracking",
+        "Quality control monitoring"
+      ],
+      "target_buyers": [
+        "Project Manager",
+        "General Contractor",
+        "Construction Manager",
+        "Site Superintendent"
+      ],
+      "email_segment": "construction-professionals",
+      "landing_page_variant": "construction-build.html",
+      "extracted_at": "2026-02-12T05:37:46.992619",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "amc-construct",
+      "directory_path": "D:\\AMC Construct",
+      "display_name": "AMC Construct",
+      "industry_cluster": "Construction & Real Estate",
+      "sub_industries": [
+        "Construction Management",
+        "Real Estate Development"
+      ],
+      "positioning_statement": "Transform construction & real estate with AI-powered construction management",
+      "key_features": [
+        "Multi-project oversight AI",
+        "Resource optimization",
+        "Safety compliance monitoring",
+        "Cost prediction system",
+        "Schedule alerting"
+      ],
+      "pain_points": [
+        "Multi-project oversight",
+        "Resource allocation",
+        "Safety compliance",
+        "Cost overrun prevention",
+        "Schedule adherence"
+      ],
+      "target_buyers": [
+        "Construction Executive",
+        "Portfolio Manager",
+        "Safety Director"
+      ],
+      "email_segment": "construction-professionals",
+      "landing_page_variant": "construction-management.html",
+      "extracted_at": "2026-02-12T05:37:46.992686",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "world-auto-vault",
+      "directory_path": "D:\\World Auto Vault",
+      "display_name": "World Auto Vault",
+      "industry_cluster": "Construction & Real Estate",
+      "sub_industries": [
+        "Automotive Logistics",
+        "Storage & Warehousing"
+      ],
+      "positioning_statement": "Transform construction & real estate with AI-powered automotive logistics",
+      "key_features": [
+        "Inventory AI",
+        "Security monitoring",
+        "Access control automation",
+        "Space optimization",
+        "Compliance reporting"
+      ],
+      "pain_points": [
+        "Inventory tracking complexity",
+        "Vehicle security",
+        "Access control",
+        "Space optimization",
+        "Compliance documentation"
+      ],
+      "target_buyers": [
+        "Logistics Director",
+        "Facility Manager",
+        "Operations Manager"
+      ],
+      "email_segment": "logistics-professionals",
+      "landing_page_variant": "logistics-storage.html",
+      "extracted_at": "2026-02-12T05:37:46.992710",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-procurement-specialist",
+      "directory_path": "D:\\YUR AI Procurement specialist",
+      "display_name": "YUR AI Procurement specialist",
+      "industry_cluster": "Operations & Management",
+      "sub_industries": [
+        "Supply Chain",
+        "Procurement",
+        "Vendor Management"
+      ],
+      "positioning_statement": "Transform operations & management with AI-powered supply chain",
+      "key_features": [
+        "Vendor evaluation AI",
+        "RFQ automation",
+        "Negotiation support",
+        "Supply chain tracking",
+        "Audit compliance"
+      ],
+      "pain_points": [
+        "Vendor evaluation complexity",
+        "RFQ process automation",
+        "Cost negotiation",
+        "Supply chain visibility",
+        "Compliance auditing"
+      ],
+      "target_buyers": [
+        "Procurement Director",
+        "Supply Chain Manager",
+        "Vendor Manager"
+      ],
+      "email_segment": "procurement-professionals",
+      "landing_page_variant": "procurement-supply-chain.html",
+      "extracted_at": "2026-02-12T05:37:46.992803",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-project-management",
+      "directory_path": "D:\\YUR AI project management",
+      "display_name": "YUR AI project management",
+      "industry_cluster": "Operations & Management",
+      "sub_industries": [
+        "Project Management",
+        "Portfolio Management",
+        "Enterprise Operations"
+      ],
+      "positioning_statement": "Transform operations & management with AI-powered project management",
+      "key_features": [
+        "Project planning AI",
+        "Resource optimization",
+        "Risk assessment automation",
+        "Stakeholder reporting",
+        "Team coordination platform"
+      ],
+      "pain_points": [
+        "Project timeline slippage",
+        "Resource allocation",
+        "Risk identification",
+        "Stakeholder reporting",
+        "Cross-functional coordination"
+      ],
+      "target_buyers": [
+        "PMO Director",
+        "Program Manager",
+        "Project Manager",
+        "Operations Manager"
+      ],
+      "email_segment": "project-professionals",
+      "landing_page_variant": "project-management.html",
+      "extracted_at": "2026-02-12T05:37:46.992833",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-sales-specialist",
+      "directory_path": "D:\\YUR AI Sales Specialist",
+      "display_name": "YUR AI Sales Specialist",
+      "industry_cluster": "Sales & Revenue",
+      "sub_industries": [
+        "Sales Management",
+        "Business Development",
+        "Revenue Operations"
+      ],
+      "positioning_statement": "Transform sales & revenue with AI-powered sales management",
+      "key_features": [
+        "Lead scoring AI",
+        "Deal analysis automation",
+        "Forecast modeling",
+        "Win rate optimization",
+        "Sales coaching system"
+      ],
+      "pain_points": [
+        "Lead qualification bottleneck",
+        "Sales cycle elongation",
+        "Deal sizing accuracy",
+        "Forecast reliability",
+        "Win rate improvement"
+      ],
+      "target_buyers": [
+        "VP Sales",
+        "Sales Director",
+        "Sales Manager",
+        "Revenue Operations Manager"
+      ],
+      "email_segment": "sales-professionals",
+      "landing_page_variant": "sales-revenue.html",
+      "extracted_at": "2026-02-12T05:37:46.992936",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-book-writer-and-publisher",
+      "directory_path": "D:\\YUR AI Book Writer and Publisher",
+      "display_name": "YUR AI Book Writer and Publisher",
+      "industry_cluster": "Content & Publishing",
+      "sub_industries": [
+        "Publishing",
+        "Author Services",
+        "Content Creation"
+      ],
+      "positioning_statement": "Transform content & publishing with AI-powered publishing",
+      "key_features": [
+        "Writing assistance AI",
+        "Editing automation",
+        "Publishing workflow",
+        "Marketing content generation",
+        "Distribution tracking"
+      ],
+      "pain_points": [
+        "Writing project duration",
+        "Editing complexity",
+        "Publishing workflow",
+        "Marketing automation",
+        "Distribution management"
+      ],
+      "target_buyers": [
+        "Publisher",
+        "Author",
+        "Content Director",
+        "Literary Agent"
+      ],
+      "email_segment": "creative-professionals",
+      "landing_page_variant": "book-publishing.html",
+      "extracted_at": "2026-02-12T05:37:46.992965",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-document-creator",
+      "directory_path": "D:\\YUR AI Document Creator",
+      "display_name": "YUR AI Document Creator",
+      "industry_cluster": "Content & Publishing",
+      "sub_industries": [
+        "Document Management",
+        "Content Services",
+        "Professional Services"
+      ],
+      "positioning_statement": "Transform content & publishing with AI-powered document management",
+      "key_features": [
+        "Document generation AI",
+        "Template management",
+        "Compliance checking",
+        "Version control system",
+        "Distribution automation"
+      ],
+      "pain_points": [
+        "Template consistency",
+        "Document generation time",
+        "Compliance in documents",
+        "Version control",
+        "Distribution management"
+      ],
+      "target_buyers": [
+        "Operations Manager",
+        "Document Manager",
+        "Compliance Officer"
+      ],
+      "email_segment": "professional-services",
+      "landing_page_variant": "document-creation.html",
+      "extracted_at": "2026-02-12T05:37:46.992990",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "comic-creator",
+      "directory_path": "D:\\Comic Creator",
+      "display_name": "Comic Creator",
+      "industry_cluster": "Content & Publishing",
+      "sub_industries": [
+        "Digital Media",
+        "Entertainment",
+        "Publishing"
+      ],
+      "positioning_statement": "Transform content & publishing with AI-powered digital media",
+      "key_features": [
+        "Content creation acceleration",
+        "Visual consistency AI",
+        "Publishing pipeline",
+        "Multi-channel distribution",
+        "Engagement analytics"
+      ],
+      "pain_points": [
+        "Creative production time",
+        "Visual consistency",
+        "Publishing workflow",
+        "Distribution channels",
+        "Audience engagement"
+      ],
+      "target_buyers": [
+        "Creative Director",
+        "Publisher",
+        "Studio Head",
+        "Content Producer"
+      ],
+      "email_segment": "entertainment-professionals",
+      "landing_page_variant": "entertainment-media.html",
+      "extracted_at": "2026-02-12T05:37:46.993013",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-career-coach",
+      "directory_path": "D:\\YUR AI Career Coach",
+      "display_name": "YUR AI Career Coach",
+      "industry_cluster": "Human Resources & Development",
+      "sub_industries": [
+        "Career Development",
+        "HR Services",
+        "Executive Coaching"
+      ],
+      "positioning_statement": "Transform human resources & development with AI-powered career development",
+      "key_features": [
+        "Career path planning AI",
+        "Skill assessment",
+        "Development recommendations",
+        "Coaching scalability",
+        "Progress dashboard"
+      ],
+      "pain_points": [
+        "Career path clarity",
+        "Skill gap identification",
+        "Development planning",
+        "Coaching scalability",
+        "Progress tracking"
+      ],
+      "target_buyers": [
+        "HR Director",
+        "Talent Manager",
+        "Executive Coach",
+        "L&D Manager"
+      ],
+      "email_segment": "hr-professionals",
+      "landing_page_variant": "career-development.html",
+      "extracted_at": "2026-02-12T05:37:46.993044",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yur-ai-home-assistant",
+      "directory_path": "D:\\YUR AI Home Assistant",
+      "display_name": "YUR AI Home Assistant",
+      "industry_cluster": "Personal Services",
+      "sub_industries": [
+        "Smart Home",
+        "Personal Assistance",
+        "Household Management"
+      ],
+      "positioning_statement": "Transform personal services with AI-powered smart home",
+      "key_features": [
+        "Smart home orchestration",
+        "Device integration",
+        "Routine automation",
+        "Energy optimization",
+        "Family coordination"
+      ],
+      "pain_points": [
+        "Smart home complexity",
+        "Device integration",
+        "Routine automation",
+        "Energy optimization",
+        "Household management"
+      ],
+      "target_buyers": [
+        "Homeowner",
+        "Smart Home Installer",
+        "Property Manager"
+      ],
+      "email_segment": "consumer-tech",
+      "landing_page_variant": "home-assistant.html",
+      "extracted_at": "2026-02-12T05:37:46.993074",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "your-ai-bookkeeping",
+      "directory_path": "D:\\Your AI bookkeeping",
+      "display_name": "Your AI bookkeeping",
+      "industry_cluster": "Finance & Accounting",
+      "sub_industries": [
+        "Bookkeeping",
+        "Accounting Services",
+        "Financial Administration"
+      ],
+      "positioning_statement": "Transform finance & accounting with AI-powered bookkeeping",
+      "key_features": [
+        "Bookkeeping automation",
+        "Bank reconciliation",
+        "Multi-currency support",
+        "Tax categorization",
+        "Financial reporting"
+      ],
+      "pain_points": [
+        "Data entry time",
+        "Reconciliation complexity",
+        "Multi-currency tracking",
+        "Tax preparation",
+        "Financial reporting"
+      ],
+      "target_buyers": [
+        "Bookkeeper",
+        "Accountant",
+        "CFO",
+        "Finance Manager"
+      ],
+      "email_segment": "accounting-professionals",
+      "landing_page_variant": "bookkeeping-accounting.html",
+      "extracted_at": "2026-02-12T05:37:46.993106",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "lead-genie",
+      "directory_path": "D:\\Lead Genie",
+      "display_name": "Lead Genie",
+      "industry_cluster": "Sales & Business Development",
+      "sub_industries": [
+        "Lead Generation",
+        "Sales Development",
+        "Business Development"
+      ],
+      "positioning_statement": "Transform sales & business development with AI-powered lead generation",
+      "key_features": [
+        "Lead quality scoring",
+        "Automated prospecting",
+        "Intelligent routing",
+        "AI qualification",
+        "Database enrichment"
+      ],
+      "pain_points": [
+        "Lead quality issues",
+        "Prospecting time",
+        "Lead routing",
+        "Qualification speed",
+        "Database accuracy"
+      ],
+      "target_buyers": [
+        "Sales Development Manager",
+        "Business Development Director",
+        "VP Sales"
+      ],
+      "email_segment": "sales-professionals",
+      "landing_page_variant": "lead-generation.html",
+      "extracted_at": "2026-02-12T05:37:46.993133",
+      "content_sources": {}
+    },
+    {
+      "vertical_id": "yard-wizard-ai",
+      "directory_path": "D:\\Yard Wizard AI",
+      "display_name": "Yard Wizard AI",
+      "industry_cluster": "Personal/Home Services",
+      "sub_industries": [
+        "Landscaping",
+        "Home Services",
+        "Property Management"
+      ],
+      "positioning_statement": "Transform personal/home services with AI-powered landscaping",
+      "key_features": [
+        "Service scheduling",
+        "Team dispatch",
+        "Customer portal",
+        "Quality tracking",
+        "Route optimization"
+      ],
+      "pain_points": [
+        "Scheduling complexity",
+        "Resource allocation",
+        "Customer communication",
+        "Quality consistency",
+        "Route optimization"
+      ],
+      "target_buyers": [
+        "Service Owner",
+        "Operations Manager",
+        "Franchise Owner"
+      ],
+      "email_segment": "home-services",
+      "landing_page_variant": "home-services-landscaping.html",
+      "extracted_at": "2026-02-12T05:37:46.993165",
+      "content_sources": {}
+    }
+  ]
+}

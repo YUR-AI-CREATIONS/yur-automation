@@ -1,0 +1,154 @@
+version: '3.9'
+
+services:
+  # Trinity Spine (Main API)
+  trinity-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.trinity
+    container_name: trinity-api
+    ports:
+      - "8000:8000"
+      - "9090:9090"
+    environment:
+      TRINITY_AUTONOMY_LEVEL: "2"
+      TRINITY_PQC_ENABLED: "true"
+      TRINITY_OUROBOROS_ENABLED: "true"
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      TRINITY_API_KEY: ${TRINITY_API_KEY}
+      TRINITY_SIGNING_SECRET: ${TRINITY_SIGNING_SECRET}
+    depends_on:
+      - redis
+      - supabase
+    networks:
+      - trinity-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  # Governance Sidecar
+  governance-sidecar:
+    build:
+      context: .
+      dockerfile: Dockerfile.governance
+    container_name: governance-sidecar
+    ports:
+      - "8001:8001"
+    environment:
+      TRINITY_PQC_ENABLED: "true"
+      TRINITY_API_KEY: ${TRINITY_API_KEY}
+    depends_on:
+      - trinity-api
+    networks:
+      - trinity-network
+    restart: unless-stopped
+
+  # Ouroboros Monitor (Self-Healing)
+  ouroboros-monitor:
+    build:
+      context: .
+      dockerfile: Dockerfile.ouroboros
+    container_name: ouroboros-monitor
+    environment:
+      TRINITY_OUROBOROS_ENABLED: "true"
+      TRINITY_AUDIT_INTERVAL: "300"
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
+    depends_on:
+      - trinity-api
+      - redis
+    networks:
+      - trinity-network
+    restart: unless-stopped
+
+  # System Spawner (Daily Regeneration)
+  system-spawner:
+    build:
+      context: .
+      dockerfile: Dockerfile.spawner
+    container_name: system-spawner
+    environment:
+      OUROBOROS_MODE: "true"
+      SPAWN_YUR_AI: "true"
+      SPAWN_WAV: "true"
+      SPAWN_WCC: "true"
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
+    depends_on:
+      - trinity-api
+    networks:
+      - trinity-network
+    restart: unless-stopped
+
+  # Redis (Caching & Sessions)
+  redis:
+    image: redis:7-alpine
+    container_name: trinity-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - trinity-network
+    restart: unless-stopped
+
+  # Supabase (Database & Auth)
+  supabase:
+    image: supabase/postgres:15
+    container_name: supabase-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-trinity}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-trinity}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - trinity-network
+    restart: unless-stopped
+
+  # Prometheus (Metrics)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - trinity-network
+    restart: unless-stopped
+
+  # Grafana (Dashboards)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-trinity}
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - trinity-network
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  postgres-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  trinity-network:
+    driver: bridge

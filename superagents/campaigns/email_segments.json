@@ -1,0 +1,64 @@
+{
+  "financial-professionals": [
+    "YUR AI Financial Advisor"
+  ],
+  "tax-professionals": [
+    "YUR AI tax ASSISTANT"
+  ],
+  "crypto-professionals": [
+    "Crypto Pulse"
+  ],
+  "lending-professionals": [
+    "KarmaScoreAI"
+  ],
+  "healthcare-professionals": [
+    "YUR AI Medical assistant"
+  ],
+  "emergency-response": [
+    "Air Savior"
+  ],
+  "legal-professionals": [
+    "YUR AI Legal"
+  ],
+  "corporate-executives": [
+    "YUR AI Corporate"
+  ],
+  "construction-professionals": [
+    "Construction Wizard",
+    "AMC Construct"
+  ],
+  "logistics-professionals": [
+    "World Auto Vault"
+  ],
+  "procurement-professionals": [
+    "YUR AI Procurement specialist"
+  ],
+  "project-professionals": [
+    "YUR AI project management"
+  ],
+  "sales-professionals": [
+    "YUR AI Sales Specialist",
+    "Lead Genie"
+  ],
+  "creative-professionals": [
+    "YUR AI Book Writer and Publisher"
+  ],
+  "professional-services": [
+    "YUR AI Document Creator"
+  ],
+  "entertainment-professionals": [
+    "Comic Creator"
+  ],
+  "hr-professionals": [
+    "YUR AI Career Coach"
+  ],
+  "consumer-tech": [
+    "YUR AI Home Assistant"
+  ],
+  "accounting-professionals": [
+    "Your AI bookkeeping"
+  ],
+  "home-services": [
+    "Yard Wizard AI"
+  ]
+}

@@ -1,0 +1,528 @@
+
+# Trinity Spine — Kubernetes Operator & Deployment
+# Deploys Trinity as a distributed, self-healing, self-spawning system
+# Applied via: kubectl apply -f trinity-k8s-operator.yaml
+
+---
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: trinity-spine
+  labels:
+    name: trinity-spine
+
+---
+# ConfigMap: Trinity Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: trinity-config
+  namespace: trinity-spine
+data:
+  TRINITY_AUTONOMY_LEVEL: "2"  # 0=manual, 1=semi-auto, 2=full autonomy
+  TRINITY_PQC_ENABLED: "true"
+  TRINITY_OUROBOROS_ENABLED: "true"
+  TRINITY_AUDIT_INTERVAL: "300"  # 5 minutes
+  TRINITY_RATE_LIMIT_PER_MINUTE: "60"
+  TRINITY_MAX_COST_PER_MISSION: "1000"
+
+---
+# ConfigMap: Governance Policies (loaded into Redis/Supabase)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: governance-policies
+  namespace: trinity-spine
+data:
+  policies.json: |
+    {
+      "internal": {
+        "auto_execute": true,
+        "requires_evidence": true,
+        "max_retries": 3,
+        "timeout_sec": 300
+      },
+      "external_low": {
+        "auto_execute": true,
+        "requires_evidence": true,
+        "max_retries": 2,
+        "timeout_sec": 60
+      },
+      "external_medium": {
+        "auto_execute": false,
+        "requires_evidence": true,
+        "max_retries": 1,
+        "timeout_sec": 120
+      },
+      "external_high": {
+        "auto_execute": false,
+        "requires_evidence": true,
+        "max_retries": 0,
+        "timeout_sec": 0
+      }
+    }
+
+---
+# Secret: API Keys & Signing Keys
+apiVersion: v1
+kind: Secret
+metadata:
+  name: trinity-secrets
+  namespace: trinity-spine
+type: Opaque
+stringData:
+  TRINITY_API_KEY: "your-secret-api-key"
+  TRINITY_SIGNING_SECRET: "your-pqc-signing-secret"
+  SUPABASE_SERVICE_KEY: "your-supabase-key"
+  STRIPE_SECRET_KEY: "your-stripe-key"
+  TRINITY_ALLOWED_ORIGINS: "https://your-domain.com"
+
+---
+# ServiceAccount: Trinity Operator
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: trinity-operator
+  namespace: trinity-spine
+
+---
+# ClusterRole: Permissions for Trinity Operator
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: trinity-operator-role
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments", "statefulsets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["pods", "services", "configmaps", "secrets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+---
+# ClusterRoleBinding: Bind ServiceAccount to ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: trinity-operator-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: trinity-operator-role
+subjects:
+- kind: ServiceAccount
+  name: trinity-operator
+  namespace: trinity-spine
+
+---
+# Deployment: Trinity Spine (Main API)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trinity-spine
+  namespace: trinity-spine
+  labels:
+    app: trinity
+    component: spine
+spec:
+  replicas: 3  # High availability
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: trinity
+      component: spine
+  template:
+    metadata:
+      labels:
+        app: trinity
+        component: spine
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: trinity-operator
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      
+      initContainers:
+      # Initialize PQC keypairs
+      - name: pqc-init
+        image: trinity:latest
+        command: ["python", "-c", "from src.core.quantum_royalty import quantum_royalty; quantum_royalty.generate_keypair('trinity-spine-001')"]
+        envFrom:
+        - configMapRef:
+            name: trinity-config
+        securityContext:
+          readOnlyRootFilesystem: true
+      
+      # Initialize Ouroboros monitoring
+      - name: ouroboros-init
+        image: trinity:latest
+        command: ["python", "-c", "from src.core.ouroboros_spine import ouroboros_spine; ouroboros_spine.register_system('yur_ai', 'YUR-AI', {})"]
+        securityContext:
+          readOnlyRootFilesystem: true
+      
+      containers:
+      # Main Trinity API
+      - name: trinity-api
+        image: trinity:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8000
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
+        
+        envFrom:
+        - configMapRef:
+            name: trinity-config
+        - secretRef:
+            name: trinity-secrets
+        
+        env:
+        - name: TRINITY_LOG_LEVEL
+          value: "INFO"
+        - name: TRINITY_WORKER_COUNT
+          value: "4"
+        
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+          limits:
+            cpu: "2000m"
+            memory: "2Gi"
+        
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+        
+        securityContext:
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: trinity-cache
+          mountPath: /app/cache
+      
+      # Governance Sidecar (enforces policies)
+      - name: governance-sidecar
+        image: trinity-governance:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: governance
+          containerPort: 8001
+        
+        envFrom:
+        - configMapRef:
+            name: trinity-config
+        - secretRef:
+            name: trinity-secrets
+        
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        
+        securityContext:
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+        
+        volumeMounts:
+        - name: governance-policies
+          mountPath: /policies
+          readOnly: true
+        - name: tmp
+          mountPath: /tmp
+      
+      # Ouroboros Monitor (self-healing daemon)
+      - name: ouroboros-monitor
+        image: trinity-ouroboros:latest
+        imagePullPolicy: IfNotPresent
+        
+        envFrom:
+        - configMapRef:
+            name: trinity-config
+        - secretRef:
+            name: trinity-secrets
+        
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+        
+        securityContext:
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+        
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+      
+      volumes:
+      - name: tmp
+        emptyDir: {}
+      - name: trinity-cache
+        emptyDir: {}
+      - name: governance-policies
+        configMap:
+          name: governance-policies
+
+      # Node affinity: prefer nodes with more resources
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - trinity
+              topologyKey: kubernetes.io/hostname
+
+---
+# Service: Expose Trinity API
+apiVersion: v1
+kind: Service
+metadata:
+  name: trinity-service
+  namespace: trinity-spine
+  labels:
+    app: trinity
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+    protocol: TCP
+  - name: https
+    port: 443
+    targetPort: http
+    protocol: TCP
+  - name: metrics
+    port: 9090
+    targetPort: metrics
+    protocol: TCP
+  selector:
+    app: trinity
+    component: spine
+
+---
+# Service: Internal Governance Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: governance-service
+  namespace: trinity-spine
+spec:
+  type: ClusterIP
+  ports:
+  - name: governance
+    port: 8001
+    targetPort: governance
+  selector:
+    app: trinity
+    component: spine
+
+---
+# CronJob: System Spawner (auto-regenerate systems daily)
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: trinity-system-spawner
+  namespace: trinity-spine
+spec:
+  schedule: "0 0 * * *"  # Daily at midnight
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: trinity-operator
+          restartPolicy: OnFailure
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+          
+          containers:
+          - name: spawner
+            image: trinity-spawner:latest
+            imagePullPolicy: IfNotPresent
+            
+            env:
+            - name: OUROBOROS_MODE
+              value: "true"
+            - name: SPAWN_YUR_AI
+              value: "true"
+            - name: SPAWN_WAV
+              value: "true"
+            - name: SPAWN_WCC
+              value: "true"
+            
+            envFrom:
+            - secretRef:
+                name: trinity-secrets
+            
+            resources:
+              requests:
+                cpu: "500m"
+                memory: "512Mi"
+              limits:
+                cpu: "2000m"
+                memory: "2Gi"
+            
+            securityContext:
+              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: false
+
+---
+# CronJob: Ouroboros Audit Loop (every 5 minutes)
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: trinity-ouroboros-audit
+  namespace: trinity-spine
+spec:
+  schedule: "*/5 * * * *"  # Every 5 minutes
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: trinity-operator
+          restartPolicy: OnFailure
+          
+          containers:
+          - name: auditor
+            image: trinity-ouroboros:latest
+            imagePullPolicy: IfNotPresent
+            
+            env:
+            - name: AUDIT_MODE
+              value: "true"
+            - name: HEAL_MODE
+              value: "true"
+            
+            envFrom:
+            - secretRef:
+                name: trinity-secrets
+
+---
+# HorizontalPodAutoscaler: Auto-scale based on metrics
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: trinity-spine-hpa
+  namespace: trinity-spine
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: trinity-spine
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 75
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+# PodDisruptionBudget: Ensure availability during maintenance
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: trinity-spine-pdb
+  namespace: trinity-spine
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: trinity
+      component: spine
+
+---
+# NetworkPolicy: Restrict traffic (optional)
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: trinity-network-policy
+  namespace: trinity-spine
+spec:
+  podSelector:
+    matchLabels:
+      app: trinity
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: trinity
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+  egress:
+  - to:
+    - podSelector: {}
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
