@@ -23,11 +23,14 @@ class FolderMapping:
     description: str
 
 
-# Canonical folder mapping per FranklinOps plan:
-# 02BIDDING → new opportunities (ITBs, contacts, RFQs)
-# 01PROJECTS → active work (project docs, submittals)
-# Attachments → invoices, submittals, misc paperwork
+# Canonical folder mapping — Cursor project paths
+# OneDrive roots (when configured): 02BIDDING, 01PROJECTS, Attachments
+# Project Controls: c-00-Project-Controls-* (each log = separate Cursor workspace)
+# Main systems: d-Superagents, d-XAI-BID-ZONE (sales portal), d-Franklin-OS-local, d-JCK-Land-Development
+_CURSOR_PROJECTS = "C:\\Users\\jerem\\.cursor\\projects"
+
 CANONICAL_FOLDER_MAPPING: tuple[FolderMapping, ...] = (
+    # OneDrive (optional)
     FolderMapping(
         source="onedrive_bidding",
         role="new_opportunities",
@@ -46,14 +49,133 @@ CANONICAL_FOLDER_MAPPING: tuple[FolderMapping, ...] = (
         env_var="FRANKLINOPS_ONEDRIVE_ATTACHMENTS_ROOT",
         description="Attachments — vendor invoices, submittals, misc paperwork",
     ),
+    # Project Controls (Cursor workspaces)
+    FolderMapping(
+        source="pc_change_order",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_CHANGE_ORDER",
+        description="Change Order Log",
+    ),
+    FolderMapping(
+        source="pc_document",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_DOCUMENT",
+        description="Document Log",
+    ),
+    FolderMapping(
+        source="pc_long_lead_material",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_LONG_LEAD_MATERIAL",
+        description="Long Lead Material Log",
+    ),
+    FolderMapping(
+        source="pc_material_delivery",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_MATERIAL_DELIVERY",
+        description="Material Delivery Log",
+    ),
+    FolderMapping(
+        source="pc_material_return",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_MATERIAL_RETURN",
+        description="Material Return Log",
+    ),
+    FolderMapping(
+        source="pc_material_shortage",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_MATERIAL_SHORTAGE",
+        description="Material Shortage Log",
+    ),
+    FolderMapping(
+        source="pc_project_roster",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_PROJECT_ROSTER",
+        description="Project Roster",
+    ),
+    FolderMapping(
+        source="pc_rain_delay",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_RAIN_DELAY",
+        description="Rain Delay Log",
+    ),
+    FolderMapping(
+        source="pc_rfi",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_RFI",
+        description="RFI Log",
+    ),
+    FolderMapping(
+        source="pc_submittal",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_SUBMITTAL",
+        description="Submittal Log",
+    ),
+    FolderMapping(
+        source="pc_substitution",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_SUBSTITUTION",
+        description="Substitution Log",
+    ),
+    FolderMapping(
+        source="pc_value_engineering",
+        role="construction_logs",
+        env_var="FRANKLINOPS_PC_VALUE_ENGINEERING",
+        description="Value Engineering Log",
+    ),
+    # Main systems
+    FolderMapping(
+        source="superagents",
+        role="agent_codebase",
+        env_var="FRANKLINOPS_SUPERAGENTS_ROOT",
+        description="Superagents — hub, GROKSTMATE, orchestration",
+    ),
+    FolderMapping(
+        source="bid_zone",
+        role="sales_portal",
+        env_var="FRANKLINOPS_BID_ZONE_ROOT",
+        description="BID-ZONE — sales portal (estimating, land procurement)",
+    ),
+    FolderMapping(
+        source="franklin_os",
+        role="franklin_os",
+        env_var="FRANKLINOPS_FRANKLIN_OS_ROOT",
+        description="Franklin OS",
+    ),
+    FolderMapping(
+        source="jck_land_dev",
+        role="land_development",
+        env_var="FRANKLINOPS_JCK_LAND_DEV_ROOT",
+        description="JCK Land Development",
+    ),
 )
+
+
+# Default Cursor project paths (used when env var not set)
+_DEFAULT_PATHS: dict[str, str] = {
+    "FRANKLINOPS_PC_CHANGE_ORDER": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Change-Order-Log",
+    "FRANKLINOPS_PC_DOCUMENT": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Document-Log",
+    "FRANKLINOPS_PC_LONG_LEAD_MATERIAL": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Long-Lead-Material-Log",
+    "FRANKLINOPS_PC_MATERIAL_DELIVERY": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Material-Delivery-Log",
+    "FRANKLINOPS_PC_MATERIAL_RETURN": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Material-Return-Log",
+    "FRANKLINOPS_PC_MATERIAL_SHORTAGE": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Material-Shortage-Log",
+    "FRANKLINOPS_PC_PROJECT_ROSTER": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Project-Roster",
+    "FRANKLINOPS_PC_RAIN_DELAY": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Rain-Delay-Log",
+    "FRANKLINOPS_PC_RFI": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-RFI-Log",
+    "FRANKLINOPS_PC_SUBMITTAL": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Submittal-Log",
+    "FRANKLINOPS_PC_SUBSTITUTION": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Substitution-Log",
+    "FRANKLINOPS_PC_VALUE_ENGINEERING": f"{_CURSOR_PROJECTS}\\c-00-Project-Controls-Value-Engineering-Log",
+    "FRANKLINOPS_SUPERAGENTS_ROOT": f"{_CURSOR_PROJECTS}\\d-Superagents",
+    "FRANKLINOPS_BID_ZONE_ROOT": f"{_CURSOR_PROJECTS}\\d-XAI-BID-ZONE",
+    "FRANKLINOPS_FRANKLIN_OS_ROOT": f"{_CURSOR_PROJECTS}\\d-Franklin-OS-local",
+    "FRANKLINOPS_JCK_LAND_DEV_ROOT": f"{_CURSOR_PROJECTS}\\d-JCK-Land-Development",
+}
 
 
 def get_roots_from_env() -> dict[str, str]:
     """Build roots dict from env vars (used by ingestion, pilot, runners)."""
     roots: dict[str, str] = {}
     for m in CANONICAL_FOLDER_MAPPING:
-        val = (os.getenv(m.env_var) or "").strip()
+        val = (os.getenv(m.env_var) or _DEFAULT_PATHS.get(m.env_var, "") or "").strip()
         if val:
             roots[m.source] = val
     return roots

@@ -1,8 +1,12 @@
-# FranklinOps: Revolutionary Business Automation System
+# YUR Corporate Automation
 
-**The Pinnacle of User-Friendly Business Intelligence and Automation**
+**The full system. The circle never stops.**
 
-FranklinOps is a revolutionary, AI-enhanced business operating system that gracefully removes human toil while keeping humans in control for high-risk decisions. Originally designed for construction and contracting businesses, it adapts to any business type with intelligent automation.
+*Incoming → Outgoing → Collection → Regenerating → Incoming.*
+
+AI-enhanced business automation that removes toil while keeping humans in control. Built for construction — land speculation through warranty. Built for any business. Verified. Audited.
+
+📄 **[Marketing & Campaign Copy](docs/YUR_CORPORATE_AUTOMATION.md)** · 📐 **[Architecture Wireframe](docs/WIREFRAME.md)** · ✅ **[Verification](docs/VERIFICATION.md)**
 
 ## 🚀 What FranklinOps Does
 
@@ -13,40 +17,24 @@ FranklinOps is a revolutionary, AI-enhanced business operating system that grace
 - **📊 Document Intelligence**: Automatically organize, search, and extract insights from all your business documents
 - **🔔 Smart Notifications**: Context-aware alerts that help you stay on top of critical business activities
 
-### **Architecture: Hub + Spokes + Tire**
+### **The Circle: YUR Corporate Automation**
 
 ```mermaid
-flowchart LR
-  onedrive[OneDrive_Folders] -->|"file_events"| FranklinOpsHub
-  procore[Procore] -->|"api_sync"| FranklinOpsHub
-  email[Email] -->|"inbound_outbound"| FranklinOpsHub
-
-  subgraph hub [FranklinOpsHub]
-    opsDb[(OpsDB)]
-    docIndex[(DocIndex_FAISS)]
-    autonomyGate[AutonomyGate]
-    auditLog[(AuditLog)]
-    ui[OpsDashboard_UI]
+flowchart TB
+  subgraph circle [YUR Corporate Automation]
+    IN[Incoming]
+    OUT[Outgoing]
+    COLL[Collection]
+    REG[Regenerating]
   end
 
-  FranklinOpsHub --> SalesSpokes
-  FranklinOpsHub --> FinanceSpokes
-
-  FranklinOpsHub -->|"approve_required"| Humans
-  Humans -->|"approve_deny"| FranklinOpsHub
-
-  subgraph tire [RegenerativeCapitalLoop]
-    metrics[Metrics_KPI]
-    backlog[AutomationBacklog]
-    evolution[SpokeEvolution]
-  end
-
-  FranklinOpsHub --> metrics
-  metrics --> backlog
-  backlog --> evolution
-  evolution --> SalesSpokes
-  evolution --> FinanceSpokes
+  IN --> OUT
+  OUT --> COLL
+  COLL --> REG
+  REG --> IN
 ```
+
+*Incoming → Outgoing → Collection → Regenerating → Incoming. Hub = Collection. Regenerating closes the loop.*
 
 ## 🎯 Key Features
 

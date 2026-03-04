@@ -39,6 +39,11 @@ class FranklinOpsSettings:
         self.onedrive_projects_root = os.getenv("FRANKLINOPS_ONEDRIVE_PROJECTS_ROOT", "")
         self.onedrive_bidding_root = os.getenv("FRANKLINOPS_ONEDRIVE_BIDDING_ROOT", "")
         self.onedrive_attachments_root = os.getenv("FRANKLINOPS_ONEDRIVE_ATTACHMENTS_ROOT", "")
+        _cursor = "C:\\Users\\jerem\\.cursor\\projects"
+        self.superagents_root = os.getenv("FRANKLINOPS_SUPERAGENTS_ROOT", f"{_cursor}\\d-Superagents")
+        self.bid_zone_root = os.getenv("FRANKLINOPS_BID_ZONE_ROOT", f"{_cursor}\\d-XAI-BID-ZONE")
+        self.franklin_os_root = os.getenv("FRANKLINOPS_FRANKLIN_OS_ROOT", f"{_cursor}\\d-Franklin-OS-local")
+        self.jck_land_dev_root = os.getenv("FRANKLINOPS_JCK_LAND_DEV_ROOT", f"{_cursor}\\d-JCK-Land-Development")
 
         # Risk thresholds: escalate to human when exceeded
         self.risk_max_approval_amount = _env_float("FRANKLINOPS_RISK_MAX_APPROVAL_AMOUNT", 5000.0)

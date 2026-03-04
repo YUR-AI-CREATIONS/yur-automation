@@ -1,13 +1,51 @@
-# Session Summary — UI Upgrade & Dashboard Enhancements
+# Session Summary — Full Day's Work
 
 **Date:** March 4, 2025  
 **Status:** Complete ✅
 
 ---
 
-## What Was Done
+## Overview
 
-### 1. Visual Theme Overhaul
+Today's session covered the full superagents fleet, integrations, plugin architecture, audit fixes, and UI polish.
+
+---
+
+## 1. Superagents Fleet (20 Agents)
+
+- **Location:** `src/superagents_fleet/`
+- **Registry:** `registry.py` — agent specs (id, name, domain, phase, capabilities)
+- **Hub:** `hub.py` — FleetHub for dispatch, routing, audit, privacy
+- **Plugins:** land_feasibility, bid_scraping, financial_analyst, bookkeeper, file_keeper, project_manager, logistics_fleet, social_marketing, internal_audit
+- **Plugin system:** `plugin/` — AgentPlugin interface, PluginRegistry, PrivacyFilter
+- **FranklinOps wiring:** Fleet endpoints, `/ui/fleet` in server.py
+
+## 2. Integrations
+
+- **LLM** (`integrations/llm.py`) — OpenAI + Ollama fallback for feasibility, outreach, subcontractor scoring
+- **Bid portals** (`integrations/bid_portals.py`) — SAM.gov adapter (needs `SAM_GOV_API_KEY`)
+- **Procore** (`integrations/procore_invoices.py`) — Invoice bridge to FranklinOps
+- **OneDrive** (`integrations/onedrive_docs.py`) — Doc bridge to ingest roots
+- **Endpoints:** `POST /api/fleet/integrations/onedrive/ingest`, `POST /api/fleet/integrations/procore/import`, `POST /api/fleet/agents/bid_scraping/scrape_sam_gov`
+
+## 3. Audit & Fixes
+
+- Privacy: recursive sanitization, pattern coverage, hub sanitization
+- Plugin bugs: land_feasibility parcel_id, bid_scraping schema
+- Registry: RLock, operator precedence, agent_id validation
+- Hub: error handling, audit on success/failure, task copy, route_document safe keys
+- Pydantic models for fleet API
+- Tests: `src/superagents_fleet/tests/test_fleet.py`
+
+## 4. Config & Other Changes
+
+- `.env.example`, `settings.py`, `hub_config.py` — new env vars, roots
+- `run_pilot.py`, `sales_runner.py` — wiring updates
+- `README.md` — docs updates
+
+## 5. UI Upgrade (This Session)
+
+### Visual Theme Overhaul
 - **Palette:** Navy forest green (`#051a12`, `#0d2e1c`, `#122d20`) + matte gold (`#e8c547`, `#f5d96b`)
 - **Glassmorphism:** `backdrop-filter: blur(20px)` on cards, buttons, inputs; semi-transparent backgrounds
 - **Typography:** Inter font via Google Fonts
@@ -33,11 +71,23 @@
 
 ---
 
-## Key Files Changed
+## Key Paths
 
-| File | Changes |
+| Path | Purpose |
 |------|---------|
-| `src/franklinops/server.py` | `THEME_CSS`, `UI_NO_CACHE`, all UI routes, main dashboard layout |
+| `src/superagents_fleet/` | Fleet package |
+| `src/superagents_fleet/plugin/` | Plugin interface, registry, privacy |
+| `src/superagents_fleet/plugins/` | Agent plugins |
+| `src/superagents_fleet/integrations/` | LLM, bid portals, Procore, OneDrive |
+| `src/franklinops/server.py` | FranklinOps app, all UI routes |
+
+---
+
+## Config Notes
+
+- `SAM_GOV_API_KEY` — optional, for bid scraping
+- `OPENAI_API_KEY` — used by LLM integrations
+- `FRANKLINOPS_FLEET_PLUGINS_DIR` — optional, for external plugins
 
 ---
 
@@ -45,12 +95,4 @@
 
 - **Start server:** `python -m uvicorn src.franklinops.server:app --host 127.0.0.1 --port 8000 --reload`
 - **Main dashboard:** http://127.0.0.1:8000/ui
-- **Enhanced UI (full chat + notifications):** http://127.0.0.1:8000/ui/enhanced
-
----
-
-## For Tomorrow
-
-- User can pick up from here; no pending work
-- All changes are in `server.py`; theme is centralized in `THEME_CSS` constant
-- Any future UI tweaks: edit `THEME_CSS` or page-specific styles in `server.py`
+- **Fleet UI:** http://127.0.0.1:8000/ui/fleet

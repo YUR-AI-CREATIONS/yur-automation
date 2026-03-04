@@ -17,6 +17,7 @@ _root = Path(__file__).resolve().parents[2]
 if str(_root) not in sys.path:
     sys.path.insert(0, str(_root))
 
+from src.franklinops.hub_config import get_roots_from_env
 from src.franklinops.settings import FranklinOpsSettings
 from src.franklinops.opsdb import OpsDB
 from src.franklinops.audit import AuditLogger
@@ -46,12 +47,8 @@ def run_pilot() -> dict:
 
     results: dict = {}
 
-    # Ingest
-    roots = {
-        "onedrive_projects": settings.onedrive_projects_root,
-        "onedrive_bidding": settings.onedrive_bidding_root,
-        "onedrive_attachments": settings.onedrive_attachments_root,
-    }
+    # Ingest (all configured roots: OneDrive, Project_Controls, Superagents)
+    roots = get_roots_from_env()
     roots = {k: v for k, v in roots.items() if v}
     if roots:
         r = ingest_roots(db, audit, roots=roots)
@@ -86,6 +83,21 @@ def run_pilot() -> dict:
     results["finance_cashflow_import_latest"] = finance.import_latest_cashflow_waterfall(source="onedrive_projects")
     r = finance.forecast_cashflow(weeks=12, create_alert_tasks=True)
     results["finance_forecast"] = {"weeks": len(r.get("weeks", []))}
+
+    # GROKSTMATE phase (autonomous construction agents)
+    try:
+        from src.integration.unified_orchestrator import run_grokstmate_phase
+
+        grok = run_grokstmate_phase(
+            db=db,
+            audit=audit,
+            approvals=approvals,
+            estimate_opportunities=True,
+            deploy_bots=False,
+        )
+        results["grokstmate"] = grok
+    except Exception as e:
+        results["grokstmate"] = {"available": False, "error": str(e)}
 
     audit.append(actor="system", action="pilot_run_complete", scope="internal", details=results)
     db.close()

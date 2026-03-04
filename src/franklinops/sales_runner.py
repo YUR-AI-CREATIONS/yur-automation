@@ -20,6 +20,7 @@ from typing import Any
 
 from .approvals import ApprovalService, build_default_gate
 from .audit import AuditLogger
+from .hub_config import get_roots_from_env
 from .autonomy import AutonomySettingsStore
 from .doc_ingestion import ingest_roots
 from .opsdb import OpsDB
@@ -46,11 +47,8 @@ def run_sales_cycle(*, send_ready: bool = True, inbound_limit: int = 250) -> dic
     approvals = ApprovalService(db, autonomy, gate)
     sales = SalesSpokes(db, audit, approvals)
 
-    roots = {
-        "onedrive_projects": settings.onedrive_projects_root,
-        "onedrive_bidding": settings.onedrive_bidding_root,
-        "onedrive_attachments": settings.onedrive_attachments_root,
-    }
+    roots = get_roots_from_env()
+    roots = {k: v for k, v in roots.items() if v}
 
     out: dict[str, Any] = {}
     try:
