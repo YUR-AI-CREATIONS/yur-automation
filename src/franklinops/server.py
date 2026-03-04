@@ -20,6 +20,7 @@ from .audit import AuditLogger
 from .autonomy import AutonomySettingsStore
 from .doc_ingestion import ingest_roots
 from .doc_index import rebuild_doc_index, search_doc_index
+from .hub_config import get_roots_from_env
 from .finance_spokes import (
     cashflow_forecast,
     import_cashflow_waterfall_csv,
@@ -120,6 +121,21 @@ class FinanceProcoreInvoicesImportIn(BaseModel):
     limit: int = Field(default=5000)
 
 
+class FleetDispatchIn(BaseModel):
+    agent_id: str = Field(..., min_length=1, max_length=64)
+    task: dict[str, Any] = Field(default_factory=dict)
+
+
+class FleetRouteDocumentIn(BaseModel):
+    type: str = Field(default="unknown", description="invoice|ap|ar|bid|rfp|project|subcontract")
+    id: str = Field(default="unknown")
+    source: Optional[str] = None
+
+
+class FleetProcoreImportIn(BaseModel):
+    artifact_id: str
+
+
 class ProcoreRawGetIn(BaseModel):
     path: str = Field(..., description="Procore REST path starting with /rest/ (read-only GET).")
     params: dict[str, Any] = Field(default_factory=dict)
@@ -202,6 +218,9 @@ def create_app() -> FastAPI:
             "onedrive_projects_root": s.onedrive_projects_root,
             "onedrive_bidding_root": s.onedrive_bidding_root,
             "onedrive_attachments_root": s.onedrive_attachments_root,
+            "superagents_root": s.superagents_root,
+            "bid_zone_root": s.bid_zone_root,
+            "roots": get_roots_from_env(),
             "default_authority_level": s.default_authority_level,
             "default_governance_scope": s.default_governance_scope,
             "rate_limit_per_hour": s.rate_limit_per_hour,
@@ -417,11 +436,8 @@ def create_app() -> FastAPI:
         s: FranklinOpsSettings = app.state.settings
         db: OpsDB = app.state.db
         audit: AuditLogger = app.state.audit
-        roots = (body.roots if body and body.roots else None) or {
-            "onedrive_projects": s.onedrive_projects_root,
-            "onedrive_bidding": s.onedrive_bidding_root,
-            "onedrive_attachments": s.onedrive_attachments_root,
-        }
+        roots = (body.roots if body and body.roots else None) or get_roots_from_env()
+        roots = {k: v for k, v in roots.items() if v}
         result = ingest_roots(db, audit, roots=roots)
         audit.append(actor="system", action="ingest_run_complete", scope="internal", details=result["counts"])
         return result
@@ -511,6 +527,30 @@ def create_app() -> FastAPI:
         except (KeyError, ValueError) as e:
             raise HTTPException(status_code=400, detail=str(e))
 
+    # -------------------------
+    # GROKSTMATE (autonomous construction agents)
+    # -------------------------
+    @app.get("/api/grokstmate/status")
+    def grokstmate_status() -> dict[str, Any]:
+        try:
+            from src.integration import GROKSTMATE_AVAILABLE
+            return {"available": GROKSTMATE_AVAILABLE}
+        except Exception:
+            return {"available": False}
+
+    @app.post("/api/grokstmate/estimate")
+    def grokstmate_estimate(body: dict[str, Any]) -> dict[str, Any]:
+        try:
+            from src.integration import IntegrationBridge, GovernanceAdapter
+            db: OpsDB = app.state.db
+            audit: AuditLogger = app.state.audit
+            approvals: ApprovalService = app.state.approvals
+            bridge = IntegrationBridge(db=db, audit=audit, approvals=approvals)
+            adapter = GovernanceAdapter(bridge, audit=audit, approvals=approvals)
+            return adapter.estimate_project(body or {}, actor="api")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
     return app
 
 
@@ -533,6 +573,7 @@ from .audit import AuditLogger
 from .autonomy import AutonomySettingsStore
 from .doc_ingestion import ingest_roots
 from .doc_index import rebuild_doc_index, search_doc_index
+from .hub_config import get_roots_from_env
 from .finance_spokes import FinanceSpokes
 from .opsdb import OpsDB
 from .ops_chat import ops_chat
@@ -682,6 +723,138 @@ class NotificationActionIn(BaseModel):
     action_type: str = "click"  # click, read, dismiss
 
 
+# Cache-busting headers for UI (avoids stale styles)
+UI_NO_CACHE = {"Cache-Control": "no-cache, no-store, must-revalidate", "Pragma": "no-cache"}
+
+# Glassmorphism + vivid navy forest green & matte gold — Webflow-quality
+THEME_CSS = """
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0; padding: 24px;
+    background: linear-gradient(135deg, #051a12 0%, #0a2818 25%, #0d2e1c 50%, #082418 75%, #051a12 100%);
+    color: #f0f4f2;
+    min-height: 100vh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #e8c547; text-decoration: none; transition: color 0.2s, text-shadow 0.2s; }
+  a:hover { color: #f5d96b; text-decoration: underline; text-shadow: 0 0 20px rgba(232, 197, 71, 0.3); }
+  h1, h2 { color: #f5f7f5; font-weight: 600; letter-spacing: -0.03em; }
+  h2 { border-bottom: 1px solid rgba(232, 197, 71, 0.4); padding-bottom: 10px; margin-bottom: 4px; }
+  .card {
+    background: rgba(18, 45, 32, 0.35);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(232, 197, 71, 0.2);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  }
+  .card:hover {
+    border-color: rgba(232, 197, 71, 0.45);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(232, 197, 71, 0.1), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+  button {
+    padding: 12px 22px;
+    background: rgba(26, 58, 42, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(232, 197, 71, 0.5);
+    border-radius: 12px;
+    color: #f0f4f2;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.25s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+  button:hover {
+    background: rgba(232, 197, 71, 0.15);
+    border-color: #e8c547;
+    box-shadow: 0 6px 24px rgba(232, 197, 71, 0.2), 0 0 0 1px rgba(232, 197, 71, 0.1);
+    transform: translateY(-1px);
+  }
+  .pill {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(232, 197, 71, 0.12);
+    backdrop-filter: blur(8px);
+    color: #e8c547;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid rgba(232, 197, 71, 0.35);
+    letter-spacing: 0.02em;
+  }
+  .muted { color: #9eb5a8; font-size: 13px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  code {
+    background: rgba(8, 28, 18, 0.7);
+    backdrop-filter: blur(8px);
+    padding: 4px 10px;
+    border-radius: 8px;
+    color: #e8c547;
+    font-size: 13px;
+    border: 1px solid rgba(232, 197, 71, 0.25);
+    font-weight: 500;
+  }
+  pre {
+    background: rgba(5, 22, 14, 0.8);
+    backdrop-filter: blur(12px);
+    color: #c8e0d0;
+    padding: 18px;
+    border-radius: 12px;
+    overflow: auto;
+    font-size: 12px;
+    border: 1px solid rgba(232, 197, 71, 0.15);
+    white-space: pre-wrap;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+  }
+  input, select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(232, 197, 71, 0.35);
+    background: rgba(8, 28, 18, 0.5);
+    backdrop-filter: blur(8px);
+    color: #f0f4f2;
+    margin: 4px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: #e8c547;
+    box-shadow: 0 0 0 3px rgba(232, 197, 71, 0.2);
+  }
+  .ok { color: #5dd68a; }
+  .warn { color: #e8c547; }
+  .err { color: #e86b6b; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid rgba(232, 197, 71, 0.12); vertical-align: top; }
+  th { font-size: 11px; color: #9eb5a8; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+  .agent-cell, .grid-cell {
+    background: rgba(12, 35, 24, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(232, 197, 71, 0.2);
+    border-radius: 12px;
+    padding: 14px 18px;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .agent-cell:hover, .grid-cell:hover {
+    border-color: rgba(232, 197, 71, 0.45);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.2), 0 0 0 1px rgba(232, 197, 71, 0.08);
+  }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 16px; }
+  @media (min-width: 1050px) { .grid { grid-template-columns: 1fr 1fr; } }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+"""
+
+
 def create_app() -> FastAPI:
     app = FastAPI(title="FranklinOpsHub", version="0.1.0")
 
@@ -715,6 +888,14 @@ def create_app() -> FastAPI:
         app.state.notifications = SmartNotificationSystem(db, audit, settings)
         app.state.sales = sales
         app.state.finance = finance
+        try:
+            from src.superagents_fleet import FleetHub
+            data_dir = settings.data_dir / "fleet"
+            app.state.fleet_hub = FleetHub(db=db, audit=audit, data_dir=data_dir)
+            for prefix, router in app.state.fleet_hub.get_all_plugin_routers():
+                app.include_router(router, prefix=prefix)
+        except ImportError:
+            app.state.fleet_hub = None
         app.state.procore_oauth_state = {}
         app.state.procore_tokens = None
 
@@ -745,6 +926,9 @@ def create_app() -> FastAPI:
             "onedrive_projects_root": s.onedrive_projects_root,
             "onedrive_bidding_root": s.onedrive_bidding_root,
             "onedrive_attachments_root": s.onedrive_attachments_root,
+            "superagents_root": s.superagents_root,
+            "bid_zone_root": s.bid_zone_root,
+            "roots": get_roots_from_env(),
             "default_authority_level": s.default_authority_level,
             "default_governance_scope": s.default_governance_scope,
             "rate_limit_per_hour": s.rate_limit_per_hour,
@@ -995,11 +1179,8 @@ def create_app() -> FastAPI:
         db: OpsDB = app.state.db
         audit: AuditLogger = app.state.audit
 
-        roots = (body.roots if body and body.roots else None) or {
-            "onedrive_projects": s.onedrive_projects_root,
-            "onedrive_bidding": s.onedrive_bidding_root,
-            "onedrive_attachments": s.onedrive_attachments_root,
-        }
+        roots = (body.roots if body and body.roots else None) or get_roots_from_env()
+        roots = {k: v for k, v in roots.items() if v}
         result = ingest_roots(db, audit, roots=roots)
         audit.append(actor="system", action="ingest_run_complete", scope="internal", details=result["counts"])
         return result
@@ -1179,6 +1360,155 @@ def create_app() -> FastAPI:
             return finance.import_procore_export_csv_from_artifact(artifact_id=body.artifact_id)
         except (KeyError, ValueError, FileNotFoundError) as e:
             raise HTTPException(status_code=400, detail=str(e))
+
+    # -------------------------
+    # GROKSTMATE (autonomous construction agents)
+    # -------------------------
+    @app.get("/api/grokstmate/status")
+    def grokstmate_status() -> dict[str, Any]:
+        try:
+            from src.integration import GROKSTMATE_AVAILABLE
+            return {"available": GROKSTMATE_AVAILABLE}
+        except Exception:
+            return {"available": False}
+
+    @app.post("/api/grokstmate/estimate")
+    def grokstmate_estimate(body: dict[str, Any]) -> dict[str, Any]:
+        try:
+            from src.integration import IntegrationBridge, GovernanceAdapter
+            db: OpsDB = app.state.db
+            audit: AuditLogger = app.state.audit
+            approvals: ApprovalService = app.state.approvals
+            bridge = IntegrationBridge(db=db, audit=audit, approvals=approvals)
+            adapter = GovernanceAdapter(bridge, audit=audit, approvals=approvals)
+            return adapter.estimate_project(body or {}, actor="api")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
+    @app.post("/api/grokstmate/project")
+    def grokstmate_create_project(body: dict[str, Any]) -> dict[str, Any]:
+        try:
+            from src.integration import IntegrationBridge, GovernanceAdapter
+            db: OpsDB = app.state.db
+            audit: AuditLogger = app.state.audit
+            approvals: ApprovalService = app.state.approvals
+            bridge = IntegrationBridge(db=db, audit=audit, approvals=approvals)
+            adapter = GovernanceAdapter(bridge, audit=audit, approvals=approvals)
+            return adapter.create_project_plan(
+                project_id=body.get("project_id", "proj_new"),
+                project_name=body.get("project_name", "New Project"),
+                project_spec=body.get("project_spec", body),
+                actor="api",
+            )
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
+    # -------------------------
+    # Superagents Fleet (construction & development agents)
+    # -------------------------
+    @app.get("/api/fleet/status")
+    def fleet_status() -> dict[str, Any]:
+        hub = getattr(app.state, "fleet_hub", None)
+        if not hub:
+            return {"available": False, "error": "Fleet hub not loaded"}
+        return {"available": True, **hub.get_status()}
+
+    @app.get("/api/fleet/agents")
+    def fleet_list_agents(phase: Optional[str] = None) -> list[dict[str, Any]]:
+        hub = getattr(app.state, "fleet_hub", None)
+        if not hub:
+            return []
+        return hub.list_agents(phase=phase)
+
+    @app.post("/api/fleet/dispatch", tags=["Superagents Fleet"])
+    async def fleet_dispatch(body: FleetDispatchIn) -> dict[str, Any]:
+        hub = getattr(app.state, "fleet_hub", None)
+        if not hub:
+            raise HTTPException(status_code=503, detail="Fleet hub not available")
+        return await hub.dispatch(body.agent_id, body.task)
+
+    @app.post("/api/fleet/route_document", tags=["Superagents Fleet"])
+    async def fleet_route_document(body: FleetRouteDocumentIn) -> dict[str, Any]:
+        hub = getattr(app.state, "fleet_hub", None)
+        if not hub:
+            raise HTTPException(status_code=503, detail="Fleet hub not available")
+        doc = {"type": body.type, "id": body.id, "source": body.source or "api"}
+        tasks = hub.route_document(doc)
+        results = await hub.dispatch_multi(tasks)
+        return {"routed": len(tasks), "results": results}
+
+    @app.post("/api/fleet/integrations/onedrive/ingest", tags=["Superagents Fleet"])
+    def fleet_onedrive_ingest() -> dict[str, Any]:
+        """Ingest documents from OneDrive/Project Controls roots into FranklinOps + file_keeper."""
+        db: OpsDB = app.state.db
+        audit: AuditLogger = app.state.audit
+        try:
+            from src.superagents_fleet.integrations.onedrive_docs import OneDriveDocBridge
+            bridge = OneDriveDocBridge(db=db, audit=audit)
+            roots = bridge.get_roots_from_env()
+            if not roots:
+                return {"error": "No OneDrive/PC roots configured", "roots": []}
+            result = bridge.ingest_from_roots(roots)
+            if "error" in result:
+                return result
+            return {"counts": result.get("counts", {}), "roots_used": list(roots.keys())}
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
+    @app.post("/api/fleet/integrations/procore/import", tags=["Superagents Fleet"])
+    def fleet_procore_import(body: FleetProcoreImportIn) -> dict[str, Any]:
+        """Import Procore invoices from artifact (CSV) into FranklinOps + bookkeeper."""
+        finance = getattr(app.state, "finance", None)
+        db: OpsDB = app.state.db
+        try:
+            from src.superagents_fleet.integrations.procore_invoices import ProcoreInvoiceBridge
+            bridge = ProcoreInvoiceBridge(db=db, finance=finance)
+            result = bridge.import_from_artifact(body.artifact_id)
+            return result
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
+    # -------------------------
+    # BID-ZONE (sales portal) — stub, bridge to build
+    # -------------------------
+    @app.get("/api/bidzone/status")
+    def bidzone_status() -> dict[str, Any]:
+        s: FranklinOpsSettings = app.state.settings
+        return {"available": False, "root": s.bid_zone_root, "note": "Bridge to build — inspect d-XAI-BID-ZONE/src/interfaces/franklin_os.py"}
+
+    @app.post("/api/bidzone/estimate")
+    def bidzone_estimate(body: dict[str, Any]) -> dict[str, Any]:
+        return {"error": "BID-ZONE bridge not yet built", "action": "Inspect franklin_os.py for API"}
+
+    # -------------------------
+    # Project Controls — stub, CRUD to build
+    # -------------------------
+    @app.get("/api/project_controls/sources")
+    def project_controls_sources() -> dict[str, Any]:
+        roots = get_roots_from_env()
+        pc_sources = {k: v for k, v in roots.items() if k.startswith("pc_")}
+        return {"sources": pc_sources, "note": "CRUD endpoints to build"}
+
+    @app.get("/api/project_controls/artifacts")
+    def project_controls_artifacts(source: Optional[str] = None, limit: int = 100) -> list[dict[str, Any]]:
+        db: OpsDB = app.state.db
+        params: list[Any] = []
+        sql = "SELECT id, source, path, status, ingested_at FROM artifacts WHERE source LIKE 'pc_%'"
+        if source:
+            sql += " AND source = ?"
+            params.append(source)
+        sql += " ORDER BY ingested_at DESC LIMIT ?"
+        params.append(limit)
+        rows = db.conn.execute(sql, params).fetchall()
+        return [dict(r) for r in rows]
+
+    # -------------------------
+    # Franklin OS — stub, bridge to find
+    # -------------------------
+    @app.get("/api/franklin_os/status")
+    def franklin_os_status() -> dict[str, Any]:
+        s: FranklinOpsSettings = app.state.settings
+        return {"available": False, "root": s.franklin_os_root, "note": "Bridge to find — inspect d-Franklin-OS-local"}
 
     @app.get("/api/finance/ar_reminders")
     def list_finance_ar_reminders(status: Optional[str] = None, limit: int = 200) -> list[dict[str, Any]]:
@@ -1653,63 +1983,50 @@ def create_app() -> FastAPI:
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <style>
-              * { margin: 0; padding: 0; box-sizing: border-box; }
-              body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; color: #1a202c; line-height: 1.6; }
-              
-              .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-              .header { background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-              .welcome-message { font-size: 18px; margin-bottom: 16px; color: #2d3748; }
+""" + THEME_CSS + """
+              .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+              .header { background: rgba(18, 45, 32, 0.35); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(232, 197, 71, 0.25); border-radius: 16px; padding: 28px; margin-bottom: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05); }
+              .welcome-message { font-size: 20px; margin-bottom: 18px; color: #f5f7f5; font-weight: 500; }
               .suggestions { display: flex; flex-wrap: wrap; gap: 12px; }
-              .suggestion { background: #e2e8f0; padding: 8px 16px; border-radius: 20px; font-size: 14px; cursor: pointer; transition: all 0.2s; }
-              .suggestion:hover { background: #cbd5e0; transform: translateY(-1px); }
-              .suggestion.high { background: #fed7d7; color: #9c1b1b; }
-              .suggestion.medium { background: #feebcb; color: #c05621; }
-              
-              .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
-              .left-panel { display: flex; flex-direction: column; gap: 24px; }
-              .right-panel { display: flex; flex-direction: column; gap: 24px; }
-              
-              .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-              .card-title { font-size: 20px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; }
-              .card-title .icon { margin-right: 8px; }
-              
+              .suggestion { background: rgba(232, 197, 71, 0.1); backdrop-filter: blur(8px); border: 1px solid rgba(232, 197, 71, 0.35); padding: 10px 18px; border-radius: 24px; font-size: 14px; cursor: pointer; transition: all 0.25s; color: #f0f4f2; font-weight: 500; }
+              .suggestion:hover { background: rgba(232, 197, 71, 0.2); border-color: #e8c547; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(232, 197, 71, 0.15); }
+              .suggestion.high { background: rgba(232, 107, 107, 0.2); border-color: rgba(232, 107, 107, 0.5); color: #e86b6b; }
+              .suggestion.medium { background: rgba(232, 197, 71, 0.2); border-color: #e8c547; color: #e8c547; }
+              .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 28px; }
+              .left-panel, .right-panel { display: flex; flex-direction: column; gap: 24px; }
+              .card-title { font-size: 20px; font-weight: 600; margin-bottom: 18px; display: flex; align-items: center; color: #f5f7f5; }
+              .card-title .icon { margin-right: 10px; }
               .chat-container { min-height: 400px; }
-              .chat-messages { height: 300px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 16px; background: #f7fafc; }
-              .chat-input-container { display: flex; gap: 12px; }
-              .chat-input { flex: 1; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 16px; }
-              .chat-send { padding: 12px 24px; background: #3182ce; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }
-              .chat-send:hover { background: #2c5aa0; }
-              
-              .message { margin-bottom: 16px; padding: 12px; border-radius: 8px; }
-              .message.user { background: #ebf8ff; text-align: right; }
-              .message.assistant { background: #f0f9ff; }
-              .message .sender { font-weight: 600; margin-bottom: 4px; font-size: 14px; }
-              
+              .chat-messages { height: 300px; overflow-y: auto; border: 1px solid rgba(232, 197, 71, 0.25); border-radius: 12px; padding: 18px; margin-bottom: 18px; background: rgba(8, 28, 18, 0.5); backdrop-filter: blur(16px); box-shadow: inset 0 2px 8px rgba(0,0,0,0.15); }
+              .chat-input-container { display: flex; gap: 14px; }
+              .chat-input { flex: 1; padding: 14px 18px; border: 1px solid rgba(232, 197, 71, 0.35); border-radius: 12px; font-size: 16px; background: rgba(8, 28, 18, 0.5); backdrop-filter: blur(8px); color: #f0f4f2; }
+              .chat-send { padding: 14px 28px; background: rgba(26, 58, 42, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(232, 197, 71, 0.5); border-radius: 12px; cursor: pointer; font-size: 16px; font-weight: 600; color: #f0f4f2; transition: all 0.25s; }
+              .chat-send:hover { background: rgba(232, 197, 71, 0.2); box-shadow: 0 6px 24px rgba(232, 197, 71, 0.2); transform: translateY(-1px); }
+              .message { margin-bottom: 18px; padding: 14px 18px; border-radius: 12px; backdrop-filter: blur(12px); }
+              .message.user { background: rgba(232, 197, 71, 0.12); text-align: right; border: 1px solid rgba(232, 197, 71, 0.25); }
+              .message.assistant { background: rgba(18, 45, 32, 0.4); border: 1px solid rgba(232, 197, 71, 0.2); }
+              .message .sender { font-weight: 600; margin-bottom: 6px; font-size: 14px; color: #e8c547; }
               .notifications-list { max-height: 400px; overflow-y: auto; }
-              .notification { padding: 16px; border-left: 4px solid #cbd5e0; margin-bottom: 12px; background: #f7fafc; border-radius: 0 8px 8px 0; }
-              .notification.high { border-left-color: #f56565; }
-              .notification.medium { border-left-color: #ed8936; }
-              .notification.low { border-left-color: #48bb78; }
-              .notification-title { font-weight: 600; margin-bottom: 4px; }
-              .notification-message { font-size: 14px; color: #4a5568; margin-bottom: 8px; }
-              .notification-actions { display: flex; gap: 8px; }
-              .notification-action { padding: 4px 12px; background: #e2e8f0; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; }
-              .notification-action:hover { background: #cbd5e0; }
-              
-              .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-              .stat { text-align: center; padding: 16px; background: #f7fafc; border-radius: 8px; }
-              .stat-number { font-size: 24px; font-weight: 700; color: #2d3748; }
-              .stat-label { font-size: 14px; color: #4a5568; margin-top: 4px; }
-              
-              .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
-              .quick-action { padding: 16px; background: #edf2f7; border: none; border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.2s; }
-              .quick-action:hover { background: #e2e8f0; transform: translateY(-2px); }
-              .quick-action .icon { font-size: 24px; margin-bottom: 8px; }
-              .quick-action .text { font-size: 14px; font-weight: 500; }
-              
-              .loading { text-align: center; padding: 20px; color: #4a5568; }
-              .error { color: #e53e3e; background: #fed7d7; padding: 16px; border-radius: 8px; margin: 16px 0; }
-              
+              .notification { padding: 18px; border-left: 4px solid rgba(232, 197, 71, 0.5); margin-bottom: 14px; background: rgba(18, 45, 32, 0.35); backdrop-filter: blur(16px); border-radius: 0 12px 12px 0; border: 1px solid rgba(232, 197, 71, 0.15); }
+              .notification.high { border-left-color: #e86b6b; }
+              .notification.medium { border-left-color: #e8c547; }
+              .notification.low { border-left-color: #5dd68a; }
+              .notification-title { font-weight: 600; margin-bottom: 6px; color: #f5f7f5; }
+              .notification-message { font-size: 14px; color: #9eb5a8; margin-bottom: 10px; }
+              .notification-actions { display: flex; gap: 10px; }
+              .notification-action { padding: 6px 14px; background: rgba(232, 197, 71, 0.12); backdrop-filter: blur(8px); border: 1px solid rgba(232, 197, 71, 0.35); border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 500; color: #f0f4f2; transition: all 0.2s; }
+              .notification-action:hover { background: rgba(232, 197, 71, 0.25); }
+              .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
+              .stat { text-align: center; padding: 20px; background: rgba(18, 45, 32, 0.4); backdrop-filter: blur(16px); border: 1px solid rgba(232, 197, 71, 0.2); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+              .stat-number { font-size: 28px; font-weight: 700; color: #e8c547; }
+              .stat-label { font-size: 14px; color: #9eb5a8; margin-top: 6px; }
+              .quick-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+              .quick-action { padding: 20px; background: rgba(18, 45, 32, 0.35); backdrop-filter: blur(16px); border: 1px solid rgba(232, 197, 71, 0.25); border-radius: 12px; cursor: pointer; text-align: center; transition: all 0.25s; color: #f0f4f2; }
+              .quick-action:hover { background: rgba(232, 197, 71, 0.15); border-color: #e8c547; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232, 197, 71, 0.15); }
+              .quick-action .icon { font-size: 28px; margin-bottom: 10px; }
+              .quick-action .text { font-size: 14px; font-weight: 600; }
+              .loading { text-align: center; padding: 24px; color: #9eb5a8; }
+              .error { color: #e86b6b; background: rgba(232, 107, 107, 0.15); backdrop-filter: blur(8px); padding: 18px; border-radius: 12px; margin: 18px 0; border: 1px solid rgba(232, 107, 107, 0.4); }
               @media (max-width: 768px) {
                 .main-grid { grid-template-columns: 1fr; }
                 .suggestions { flex-direction: column; }
@@ -2077,7 +2394,7 @@ def create_app() -> FastAPI:
           </body>
         </html>
         """
-        return HTMLResponse(content=html)
+        return HTMLResponse(content=html, headers=UI_NO_CACHE)
 
     # -------------------------
     # Lightweight UI (no extra deps)
@@ -2091,37 +2408,108 @@ def create_app() -> FastAPI:
           <head>
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>FranklinOpsHub UI</title>
+            <title>FranklinOpsHub</title>
             <style>
-              body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; color: #111; }
-              a { color: #0a58ca; text-decoration: none; }
-              a:hover { text-decoration: underline; }
-              .card { border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
-              code { background: #f3f4f6; padding: 2px 6px; border-radius: 6px; }
-              .muted { color: #64748b; font-size: 13px; }
+""" + THEME_CSS + """
+              .dashboard-grid { display: grid; grid-template-columns: 1fr 340px; gap: 24px; margin-top: 20px; }
+              @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
+              .chat-container { min-height: 320px; }
+              .chat-messages { height: 220px; overflow-y: auto; border: 1px solid rgba(232, 197, 71, 0.25); border-radius: 12px; padding: 14px; margin-bottom: 12px; background: rgba(8, 28, 18, 0.5); backdrop-filter: blur(16px); }
+              .chat-input-container { display: flex; gap: 10px; }
+              .chat-input { flex: 1; padding: 12px 14px; border: 1px solid rgba(232, 197, 71, 0.35); border-radius: 10px; font-size: 15px; background: rgba(8, 28, 18, 0.5); color: #f0f4f2; }
+              .chat-send { padding: 12px 20px; background: rgba(26, 58, 42, 0.5); border: 1px solid rgba(232, 197, 71, 0.5); border-radius: 10px; cursor: pointer; font-weight: 600; color: #f0f4f2; }
+              .chat-send:hover { background: rgba(232, 197, 71, 0.2); }
+              .message { margin-bottom: 12px; padding: 10px 14px; border-radius: 10px; font-size: 14px; }
+              .message.user { background: rgba(232, 197, 71, 0.12); text-align: right; }
+              .message.assistant { background: rgba(18, 45, 32, 0.4); }
+              .message .sender { font-weight: 600; margin-bottom: 4px; font-size: 12px; color: #e8c547; }
             </style>
           </head>
           <body>
-            <h2>FranklinOpsHub</h2>
-            <div class="card">
-              <div><b>Today queue</b> <span class="muted">(calls, invoices, approvals)</span></div>
-              <div id="todayQueue" class="muted" style="margin-top:6px;">Loading...</div>
-              <div style="margin-top:8px;"><a href="/ui/ops">View full Ops dashboard →</a></div>
+            <div class="row">
+              <h2 style="margin:0;">FranklinOpsHub</h2>
+              <span class="pill">Dashboard</span>
+              <a class="muted" href="/ui/ops">ops</a>
+              <a class="muted" href="/docs">api</a>
             </div>
-            <div class="card">
-              <div><a href="/ui/ops">Ops dashboard (tasks / approvals / autonomy)</a></div>
-              <div><a href="/ui/sales">SalesSpokes pipeline queue</a></div>
-              <div><a href="/ui/finance">FinanceSpokes (AP / AR / cashflow)</a></div>
-              <div><a href="/ui/rollout">Rollout pilot (shadow / assist / autopilot)</a></div>
-              <div style="margin-top:8px;"><a href="/docs">API docs</a></div>
+
+            <div class="dashboard-grid">
+              <div>
+                <div class="card chat-container">
+                  <div style="font-weight:600;margin-bottom:12px;color:#f5f7f5;">💬 Ask me anything about your business</div>
+                  <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant">
+                      <div class="sender">FranklinOps</div>
+                      <div>Hi! I can help you find information, automate tasks, and answer questions. Try "Show me overdue invoices" or "What needs attention today?"</div>
+                    </div>
+                  </div>
+                  <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Ask me about your business..." />
+                    <button class="chat-send" onclick="sendChatMessage()">Send</button>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div><b>Today queue</b> <span class="muted">(calls, invoices, approvals)</span></div>
+                  <div id="todayQueue" class="muted" style="margin-top:6px;">Loading...</div>
+                  <div style="margin-top:8px;"><a href="/ui/ops">View full Ops dashboard →</a></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="card">
+                  <div><b>Navigate</b></div>
+                  <div style="margin-top:8px;"><a href="/ui/ops">Ops dashboard</a></div>
+                  <div><a href="/ui/sales">SalesSpokes pipeline</a></div>
+                  <div><a href="/ui/finance">FinanceSpokes</a></div>
+                  <div><a href="/ui/grokstmate">GROKSTMATE</a></div>
+                  <div><a href="/ui/fleet">Superagents Fleet</a></div>
+                  <div><a href="/ui/bidzone">BID-ZONE</a></div>
+                  <div><a href="/ui/project_controls">Project Controls</a></div>
+                  <div><a href="/ui/rollout">Rollout pilot</a></div>
+                  <div style="margin-top:8px;"><a href="/docs">API docs</a></div>
+                </div>
+                <div class="card">
+                  <div><b>Quick tips</b></div>
+                  <div style="margin-top:6px;"><code>POST /api/ingest/run</code></div>
+                  <div><code>POST /api/sales/inbound/scan</code></div>
+                  <div><code>POST /api/finance/ap_intake/run</code></div>
+                </div>
+              </div>
             </div>
-            <div class="card">
-              <div><b>Quick tips</b></div>
-              <div style="margin-top:6px;">Run ingestion: <code>POST /api/ingest/run</code></div>
-              <div>Sales inbound scan: <code>POST /api/sales/inbound/scan</code></div>
-              <div>Finance AP scan: <code>POST /api/finance/ap_intake/run</code></div>
-            </div>
+
             <script>
+              document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendChatMessage();
+              });
+
+              async function sendChatMessage() {
+                const input = document.getElementById('chatInput');
+                const msg = input.value.trim();
+                if (!msg) return;
+                input.value = '';
+                addChatMessage('user', 'You', msg);
+                try {
+                  const r = await fetch('/api/ops_chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: msg })
+                  });
+                  const data = r.ok ? await r.json() : {};
+                  addChatMessage('assistant', 'FranklinOps', data.answer || 'Sorry, I encountered an error.');
+                } catch (e) {
+                  addChatMessage('assistant', 'FranklinOps', 'Sorry, I encountered an error.');
+                }
+              }
+
+              function addChatMessage(type, sender, text) {
+                const el = document.createElement('div');
+                el.className = 'message ' + type;
+                el.innerHTML = '<div class="sender">' + sender + '</div><div>' + text + '</div>';
+                document.getElementById('chatMessages').appendChild(el);
+                document.getElementById('chatMessages').scrollTop = 99999;
+              }
+
               (async function() {
                 try {
                   const [approvals, tasks, invoices] = await Promise.all([
@@ -2145,7 +2533,7 @@ def create_app() -> FastAPI:
           </body>
         </html>
         """
-        return HTMLResponse(content=html)
+        return HTMLResponse(content=html, headers=UI_NO_CACHE)
 
     @app.get("/ui/ops")
     def ui_ops() -> HTMLResponse:
@@ -2157,25 +2545,7 @@ def create_app() -> FastAPI:
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <title>FranklinOpsHub — Ops</title>
             <style>
-              body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 20px; color: #111; }
-              .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-              button { padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 10px; background: #fff; cursor: pointer; }
-              button:hover { background: #f9fafb; }
-              .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; background: #ecfeff; color: #155e75; font-size: 12px; }
-              .grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
-              @media (min-width: 1050px) { .grid { grid-template-columns: 1fr 1fr; } }
-              .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px; }
-              table { width: 100%; border-collapse: collapse; }
-              th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
-              th { font-size: 12px; color: #334155; text-transform: uppercase; letter-spacing: .04em; }
-              .muted { color: #64748b; font-size: 12px; }
-              .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
-              pre { white-space: pre-wrap; background: #0b1220; color: #e5e7eb; padding: 10px; border-radius: 12px; overflow:auto; }
-              .ok { color: #166534; }
-              .warn { color: #92400e; }
-              .err { color: #991b1b; }
-              select { padding: 6px 8px; border-radius: 10px; border: 1px solid #d1d5db; }
-              .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+""" + THEME_CSS + """
             </style>
           </head>
           <body>
@@ -2393,7 +2763,7 @@ def create_app() -> FastAPI:
           </body>
         </html>
         """
-        return HTMLResponse(content=html)
+        return HTMLResponse(content=html, headers=UI_NO_CACHE)
 
     @app.get("/ui/sales")
     def ui_sales() -> HTMLResponse:
@@ -2405,23 +2775,7 @@ def create_app() -> FastAPI:
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <title>SalesSpokes — Pipeline Queue</title>
             <style>
-              body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 20px; color: #111; }
-              .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-              button { padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 10px; background: #fff; cursor: pointer; }
-              button:hover { background: #f9fafb; }
-              .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; background: #eef2ff; color: #3730a3; font-size: 12px; }
-              .grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
-              .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px; }
-              table { width: 100%; border-collapse: collapse; }
-              th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
-              th { font-size: 12px; color: #334155; text-transform: uppercase; letter-spacing: .04em; }
-              .muted { color: #64748b; font-size: 12px; }
-              .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
-              .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-              .ok { color: #166534; }
-              .warn { color: #92400e; }
-              .err { color: #991b1b; }
-              pre { white-space: pre-wrap; background: #0b1220; color: #e5e7eb; padding: 10px; border-radius: 12px; overflow:auto; font-size: 12px; }
+""" + THEME_CSS + """
             </style>
           </head>
           <body>
@@ -2692,7 +3046,7 @@ def create_app() -> FastAPI:
           </body>
         </html>
         """
-        return HTMLResponse(content=html)
+        return HTMLResponse(content=html, headers=UI_NO_CACHE)
 
     @app.get("/ui/finance")
     def ui_finance() -> HTMLResponse:
@@ -2704,25 +3058,7 @@ def create_app() -> FastAPI:
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <title>FinanceSpokes</title>
             <style>
-              body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 20px; color: #111; }
-              .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-              button { padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 10px; background: #fff; cursor: pointer; }
-              button:hover { background: #f9fafb; }
-              .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; background: #dcfce7; color: #166534; font-size: 12px; }
-              .grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
-              @media (min-width: 1050px) { .grid { grid-template-columns: 1fr 1fr; } }
-              .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px; }
-              table { width: 100%; border-collapse: collapse; }
-              th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
-              th { font-size: 12px; color: #334155; text-transform: uppercase; letter-spacing: .04em; }
-              .muted { color: #64748b; font-size: 12px; }
-              .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; }
-              .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-              .ok { color: #166534; }
-              .warn { color: #92400e; }
-              .err { color: #991b1b; }
-              a { color: #0a58ca; text-decoration: none; }
-              a:hover { text-decoration: underline; }
+""" + THEME_CSS + """
             </style>
           </head>
           <body>
@@ -2904,7 +3240,262 @@ def create_app() -> FastAPI:
           </body>
         </html>
         """
-        return HTMLResponse(content=html)
+        return HTMLResponse(content=html, headers=UI_NO_CACHE)
+
+    @app.get("/ui/grokstmate")
+    def ui_grokstmate() -> HTMLResponse:
+        html = """
+        <!doctype html>
+        <html>
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>GROKSTMATE — Autonomous Construction Agents</title>
+            <style>
+""" + THEME_CSS + """
+            </style>
+          </head>
+          <body>
+            <div class="row">
+              <h2 style="margin:0;">GROKSTMATE</h2>
+              <span class="pill">Autonomous Construction Agents</span>
+              <a class="muted" href="/ui">home</a>
+              <a class="muted" href="/ui/ops">ops</a>
+              <a class="muted" href="/ui/sales">sales</a>
+              <a class="muted" href="/ui/finance">finance</a>
+            </div>
+            <div class="card">
+              <div><b>Status</b> <span id="grokStatus" class="muted">Loading...</span></div>
+            </div>
+            <div class="card">
+              <div><b>Cost Estimate</b></div>
+              <div style="margin-top:8px;">
+                <input id="estName" placeholder="Project name" value="Office Building" />
+                <select id="estType"><option value="residential">Residential</option><option value="commercial" selected>Commercial</option><option value="industrial">Industrial</option></select>
+                <input id="estSize" type="number" placeholder="Size sq ft" value="5000" />
+                <select id="estComplexity"><option value="simple">Simple</option><option value="moderate" selected>Moderate</option><option value="complex">Complex</option></select>
+                <button onclick="runEstimate()">Get Estimate</button>
+              </div>
+              <pre id="estimateResult" style="margin-top:10px;min-height:60px;">—</pre>
+            </div>
+            <div class="card">
+              <div><b>Create Project Plan</b></div>
+              <div style="margin-top:8px;">
+                <input id="projId" placeholder="Project ID" value="proj_001" />
+                <input id="projName" placeholder="Project name" value="New Construction" />
+                <button onclick="runCreateProject()">Create Plan</button>
+              </div>
+              <pre id="projectResult" style="margin-top:10px;min-height:60px;">—</pre>
+            </div>
+            <script>
+              async function jget(u) { const r = await fetch(u); return r.ok ? r.json() : null; }
+              async function jpost(u, b) { const r = await fetch(u, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(b||{}) }); return r.ok ? r.json() : null; }
+              async function loadStatus() {
+                const r = await jget('/api/grokstmate/status');
+                document.getElementById('grokStatus').textContent = r && r.available ? 'Available' : 'Not installed (pip install -e GROKSTMATE)';
+              }
+              async function runEstimate() {
+                const result = document.getElementById('estimateResult');
+                result.textContent = 'Running...';
+                try {
+                  const r = await jpost('/api/grokstmate/estimate', {
+                    name: document.getElementById('estName').value,
+                    type: document.getElementById('estType').value,
+                    size: parseInt(document.getElementById('estSize').value) || 5000,
+                    complexity: document.getElementById('estComplexity').value,
+                  });
+                  result.textContent = JSON.stringify(r, null, 2);
+                } catch (e) { result.textContent = 'Error: ' + e; }
+              }
+              async function runCreateProject() {
+                const result = document.getElementById('projectResult');
+                result.textContent = 'Running...';
+                try {
+                  const r = await jpost('/api/grokstmate/project', {
+                    project_id: document.getElementById('projId').value,
+                    project_name: document.getElementById('projName').value,
+                    project_spec: { type: 'commercial', size: 5000, complexity: 'moderate' },
+                  });
+                  result.textContent = JSON.stringify(r, null, 2);
+                } catch (e) { result.textContent = 'Error: ' + e; }
+              }
+              loadStatus();
+            </script>
+          </body>
+        </html>
+        """
+        return HTMLResponse(content=html, headers=UI_NO_CACHE)
+
+    @app.get("/ui/fleet")
+    def ui_fleet() -> HTMLResponse:
+        html = """
+        <!doctype html>
+        <html>
+          <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>Superagents Fleet — Construction & Development</title>
+            <style>
+""" + THEME_CSS + """
+              .agent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+              .agent-cell .phase { font-size: 11px; color: #9eb5a8; }
+            </style>
+          </head>
+          <body>
+            <div class="row">
+              <h2 style="margin:0;">Superagents Fleet</h2>
+              <span class="pill">Construction & Development</span>
+              <a class="muted" href="/ui">home</a>
+              <a class="muted" href="/ui/grokstmate">grokstmate</a>
+              <a class="muted" href="/ui/ops">ops</a>
+            </div>
+            <div class="card">
+              <div><b>Status</b> <span id="fleetStatus" class="muted">Loading...</span> <span class="pill" id="archBadge">plugin</span></div>
+              <div id="fleetStats" class="muted" style="margin-top:6px;"></div>
+              <div style="margin-top:8px;"><a href="/docs#/Superagents%20Fleet" class="muted">API docs</a></div>
+            </div>
+            <div class="card">
+              <div><b>Agents by Phase</b></div>
+              <div style="margin-top:8px;">
+                <select id="phaseFilter" onchange="loadAgents()">
+                  <option value="">All phases</option>
+                  <option value="land">Land</option>
+                  <option value="bid">Bid</option>
+                  <option value="ops">Operations</option>
+                  <option value="finance">Finance</option>
+                  <option value="marketing">Marketing</option>
+                  <option value="governance">Governance</option>
+                  <option value="roadmap">Roadmap</option>
+                </select>
+              </div>
+              <div id="agentGrid" class="agent-grid" style="margin-top:12px;"></div>
+            </div>
+            <div class="card">
+              <div><b>Dispatch Task</b></div>
+              <div style="margin-top:8px;">
+                <select id="dispatchAgent">
+                  <option value="land_feasibility">Land & Feasibility</option>
+                  <option value="bid_scraping">Bid Scraping</option>
+                  <option value="financial_analyst">Financial Analyst</option>
+                  <option value="bookkeeper">Bookkeeper</option>
+                  <option value="file_keeper">File Keeper</option>
+                  <option value="project_manager">Project Manager</option>
+                  <option value="logistics_fleet">Logistics & Fleet</option>
+                  <option value="social_marketing">Social Marketing</option>
+                  <option value="internal_audit">Internal Audit</option>
+                </select>
+                <select id="dispatchType">
+                  <option value="due_diligence">Due Diligence</option>
+                  <option value="feasibility_study">Feasibility Study</option>
+                  <option value="invoice_in">Invoice In</option>
+                  <option value="daily_post">Daily Post</option>
+                  <option value="generic">Generic</option>
+                </select>
+                <button onclick="runDispatch()">Dispatch</button>
+              </div>
+              <pre id="dispatchResult" style="margin-top:10px;min-height:60px;">—</pre>
+            </div>
+            <script>
+              async function jget(u) { const r = await fetch(u); return r.ok ? r.json() : null; }
+              async function jpost(u, b) { const r = await fetch(u, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(b||{}) }); return r.ok ? r.json() : null; }
+              async function loadStatus() {
+                const r = await jget('/api/fleet/status');
+                const el = document.getElementById('fleetStatus');
+                const stats = document.getElementById('fleetStats');
+                if (!r || !r.available) {
+                  el.textContent = 'Not available';
+                  return;
+                }
+                el.textContent = 'Available';
+                stats.textContent = (r.plugins_loaded || r.agents_loaded) + ' plugins, ' + r.tasks_dispatched + ' tasks. Data: ' + (r.data_dir || 'local');
+              }
+              async function loadAgents() {
+                const phase = document.getElementById('phaseFilter').value;
+                const r = await jget('/api/fleet/agents' + (phase ? '?phase=' + phase : ''));
+                const grid = document.getElementById('agentGrid');
+                if (!Array.isArray(r)) { grid.innerHTML = '<span class="muted">No agents</span>'; return; }
+                grid.innerHTML = r.map(a => '<div class="agent-cell"><b>' + a.name + '</b><div class="phase">' + a.phase + (a.has_api ? ' • <a href="/api/fleet/agents/' + a.agent_id + '/health" target="_blank">API</a>' : '') + '</div></div>').join('');
+              }
+              async function runDispatch() {
+                const result = document.getElementById('dispatchResult');
+                result.textContent = 'Running...';
+                try {
+                  const r = await jpost('/api/fleet/dispatch', {
+                    agent_id: document.getElementById('dispatchAgent').value,
+                    task: {
+                      task_id: 'ui_' + Date.now(),
+                      type: document.getElementById('dispatchType').value,
+                      description: 'Test from UI',
+                    },
+                  });
+                  result.textContent = JSON.stringify(r, null, 2);
+                  loadStatus();
+                } catch (e) { result.textContent = 'Error: ' + e; }
+              }
+              loadStatus();
+              loadAgents();
+            </script>
+          </body>
+        </html>
+        """
+        return HTMLResponse(content=html, headers=UI_NO_CACHE)
+
+    @app.get("/ui/bidzone")
+    def ui_bidzone() -> HTMLResponse:
+        html = """
+        <!doctype html>
+        <html>
+          <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>BID-ZONE — Sales Portal</title>
+            <style>
+""" + THEME_CSS + """
+            </style>
+          </head>
+          <body>
+            <h2>BID-ZONE</h2>
+            <span class="pill">Sales Portal — Bridge to build</span>
+            <a href="/ui" style="margin-left:12px;">home</a>
+            <div class="card">
+              <b>Status</b> — BID-ZONE exists at d-XAI-BID-ZONE. API bridge not yet built.
+            </div>
+            <div class="card">
+              <b>Next step</b> — Inspect <code>d-XAI-BID-ZONE/src/interfaces/franklin_os.py</code> for integration points.
+            </div>
+          </body>
+        </html>
+        """
+        return HTMLResponse(content=html, headers=UI_NO_CACHE)
+
+    @app.get("/ui/project_controls")
+    def ui_project_controls() -> HTMLResponse:
+        html = """
+        <!doctype html>
+        <html>
+          <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <title>Project Controls</title>
+            <style>
+""" + THEME_CSS + """
+            </style>
+          </head>
+          <body>
+            <h2>Project Controls</h2>
+            <a href="/ui">home</a>
+            <div class="card">
+              <b>Ingested artifacts</b> <span class="muted">(from c-00-Project-Controls-*)</span>
+              <div id="artifacts" style="margin-top:8px;">Loading...</div>
+            </div>
+            <script>
+              fetch('/api/project_controls/artifacts?limit=50').then(r=>r.json()).then(d=>{
+                const el=document.getElementById('artifacts');
+                if(!d.length){el.innerHTML='<span class="muted">No artifacts yet. Run ingest.</span>';return;}
+                el.innerHTML='<table><tr><th>Source</th><th>Path</th><th>Status</th></tr>'+
+                  d.map(a=>'<tr><td>'+a.source+'</td><td>'+a.path+'</td><td>'+a.status+'</td></tr>').join('')+'</table>';
+              }).catch(()=>document.getElementById('artifacts').textContent='Error loading');
+            </script>
+          </body>
+        </html>
+        """
+        return HTMLResponse(content=html, headers=UI_NO_CACHE)
 
     @app.get("/ui/rollout")
     def ui_rollout() -> HTMLResponse:
@@ -2916,19 +3507,7 @@ def create_app() -> FastAPI:
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <title>Rollout Pilot</title>
             <style>
-              body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 20px; color: #111; }
-              .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-              .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px; margin: 12px 0; }
-              .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; background: #eef2ff; color: #3730a3; font-size: 12px; }
-              .muted { color: #64748b; font-size: 12px; }
-              .ok { color: #166534; font-size: 12px; }
-              .err { color: #991b1b; font-size: 12px; }
-              .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; }
-              pre { background: #0b1220; color: #e5e7eb; padding: 10px; border-radius: 12px; overflow: auto; font-size: 12px; }
-              a { color: #0a58ca; text-decoration: none; }
-              a:hover { text-decoration: underline; }
-              select { padding: 6px 8px; border-radius: 10px; border: 1px solid #d1d5db; }
-              button { padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 10px; background: #fff; cursor: pointer; }
+""" + THEME_CSS + """
             </style>
           </head>
           <body>
@@ -3011,7 +3590,7 @@ def create_app() -> FastAPI:
           </body>
         </html>
         """
-        return HTMLResponse(content=html)
+        return HTMLResponse(content=html, headers=UI_NO_CACHE)
 
     return app
 
