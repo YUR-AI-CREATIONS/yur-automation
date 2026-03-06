@@ -1,40 +1,36 @@
-# YUR Corporate Automation
+# FranklinOps
 
-**The full system. The circle never stops.**
+**The first operating system for business operations.**
 
-*Incoming → Outgoing → Collection → Regenerating → Incoming.*
+*Documents in. Decisions out. Humans in control.*
 
-AI-enhanced business automation that removes toil while keeping humans in control. Built for construction — land speculation through warranty. Built for any business. Verified. Audited.
+FranklinOps is the layer that connects documents, decisions, and approvals. It runs underneath your apps — like an OS runs underneath applications. Built for construction first. Built for every American business. Verified. Audited.
 
-📄 **[Marketing & Campaign Copy](docs/YUR_CORPORATE_AUTOMATION.md)** · 📐 **[Architecture Wireframe](docs/WIREFRAME.md)** · ✅ **[Verification](docs/VERIFICATION.md)**
+📄 **[README for Dummies](README_FOR_DUMMIES.md)** · 📐 **[Architecture](docs/ARCHITECTURE.md)** · 🔌 **[Flow Interface](docs/FLOW_INTERFACE.md)** · ✅ **[Verification](docs/VERIFICATION.md)** · 🏗️ **[FranklinOps for Construction](docs/FRANKLINOPS_FOR_CONSTRUCTION.md)**
+
+## The Circle
+
+```mermaid
+flowchart TB
+  IN[Incoming] --> OUT[Outgoing]
+  OUT --> COLL[Collection]
+  COLL --> REG[Regenerating]
+  REG --> IN
+```
+
+*Incoming → Outgoing → Collection → Regenerating → Incoming.* The circle never stops.
 
 ## 🚀 What FranklinOps Does
 
-### **Core Capabilities**
+### **Operating System for Business**
 - **🧠 AI-Powered Business Intelligence**: Ask questions about your business in plain English
 - **⚡ Smart Automation**: Sales pipeline management, invoice processing, cash flow monitoring
 - **🎯 Proactive Issue Detection**: Built-in customer service that prevents problems before they occur
 - **📊 Document Intelligence**: Automatically organize, search, and extract insights from all your business documents
 - **🔔 Smart Notifications**: Context-aware alerts that help you stay on top of critical business activities
 
-### **The Circle: YUR Corporate Automation**
-
-```mermaid
-flowchart TB
-  subgraph circle [YUR Corporate Automation]
-    IN[Incoming]
-    OUT[Outgoing]
-    COLL[Collection]
-    REG[Regenerating]
-  end
-
-  IN --> OUT
-  OUT --> COLL
-  COLL --> REG
-  REG --> IN
-```
-
-*Incoming → Outgoing → Collection → Regenerating → Incoming. Hub = Collection. Regenerating closes the loop.*
+### **Universal Flow Interface**
+Any system with **IN** and **OUT** can instantly plug in. See [Flow Interface](docs/FLOW_INTERFACE.md).
 
 ## 🎯 Key Features
 
@@ -56,14 +52,15 @@ flowchart TB
 - **Business Insights**: Get real-time analysis of your business performance
 - **Change Detection**: Know exactly what files changed since last scan
 
-## 🏗️ Perfect for Construction & Contracting
+## 🏗️ FranklinOps for Construction
 
-**Built specifically for construction workflows:**
+**Our first vertical. Built for how American construction actually runs:**
+- **Pay application tracker** — Status, amounts, lien deadlines
+- **Construction dashboard** — Contract value, billed, received, outstanding
 - Monitor bidding folders for new ITBs and RFQs
 - Track project deadlines and submission requirements
-- Manage vendor relationships and payment schedules
-- Integrate with Procore for comprehensive project management
-- Handle complex cash flow forecasting with waterfall analysis
+- Integrate with Procore, QuickBooks, accounting export/import
+- Cash flow forecasting with waterfall analysis
 
 ## 🛡️ Security & Governance
 
@@ -268,9 +265,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🎯 Why FranklinOps?
 
-> **"The goal is not to replace humans, but to gracefully remove human toil while keeping humans in control for high-risk decisions."**
+> **"The first operating system for business operations — the layer that connects documents, decisions, and approvals. Built for human control, full audit, and the next 50 years of how American businesses run."**
 
-FranklinOps represents a new paradigm in business automation:
+FranklinOps represents a new paradigm:
 - **Revolutionary but Usable**: Cutting-edge AI that anyone can use
 - **Transitionable**: Gradual automation increase as trust builds
 - **Human-Graceful**: Humans become reviewers and decision-makers, not data entry clerks

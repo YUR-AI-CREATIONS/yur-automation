@@ -182,6 +182,17 @@
       }
     ]
   },
+  "flow_config": {
+    "enabled": true,
+    "sanitize_input": true,
+    "rate_limit_per_minute": 120,
+    "circuit_breaker_threshold": 5,
+    "circuit_breaker_recovery_sec": 60,
+    "max_retries": 2,
+    "max_payload_bytes": 1000000,
+    "sign_flow_results": false,
+    "audit_every_invocation": true
+  },
   "escalation_rules": {
     "high_error_rate": {
       "threshold": 0.05,
@@ -200,9 +211,15 @@
   },
   "compliance": {
     "soc2": true,
-    "hipaa": false,
+    "hipaa": true,
+    "hipaa_baa_required": true,
+    "phi_encryption_at_rest": true,
+    "phi_access_logging": true,
     "pci_dss": true,
     "gdpr": true,
-    "require_audit_logging": true
+    "require_audit_logging": true,
+    "audit_retention_days_default": 365,
+    "audit_retention_financial_years": 7,
+    "audit_immutable_export": true
   }
 }

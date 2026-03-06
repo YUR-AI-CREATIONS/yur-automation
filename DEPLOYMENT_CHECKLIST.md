@@ -4,6 +4,35 @@
 
 ---
 
+## FranklinOps Quick Start (Standalone)
+
+FranklinOps runs independently of Trinity. Use this for Development Intelligence, Construction, and Hub flows.
+
+### Environment
+- [ ] Copy `.env.example` to `.env`
+- [ ] `FRANKLINOPS_DB_PATH` (default: `data/franklinops/ops.db`)
+- [ ] `FRANKLINOPS_SERVER_PORT` (default: 8844)
+- [ ] Optional: `FRANKLINOPS_RBAC_ENABLED=true` for role enforcement
+- [ ] Optional: `FRANKLINOPS_API_KEYS=key1,key2` for API key auth
+- [ ] Production: `FRANKLINOPS_ENV=production` (disables evidence bypass)
+
+### Run
+```bash
+uvicorn src.franklinops.server:app --host 127.0.0.1 --port 8844
+```
+
+### Verify
+- [ ] `curl http://127.0.0.1:8844/healthz` → `{"ok": true}`
+- [ ] `curl http://127.0.0.1:8844/api/governance/hash` → version + hash
+- [ ] `python scripts/verify_integration.py` → 23 tests pass
+
+### UI
+- [ ] http://127.0.0.1:8844/ui — Hub home
+- [ ] http://127.0.0.1:8844/ui/development — Pipeline
+- [ ] http://127.0.0.1:8844/ui/land_dev — JCK Land Dev
+
+---
+
 ## PHASE 1: LOCAL DEVELOPMENT (Week 1)
 
 ### Environment Setup

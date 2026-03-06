@@ -205,8 +205,9 @@ def extract_text_from_xlsx(path: Path) -> str:
     finally:
         try:
             wb.close()
-        except Exception:
-            pass
+        except Exception as e:
+            import logging
+            logging.getLogger("franklinops.doc_ingestion").debug("xlsx close: %s", e)
 
     return "\n".join(out_lines).strip()
 

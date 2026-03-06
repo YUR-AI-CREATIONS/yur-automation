@@ -39,8 +39,10 @@ class FranklinOpsSettings:
         self.onedrive_projects_root = os.getenv("FRANKLINOPS_ONEDRIVE_PROJECTS_ROOT", "")
         self.onedrive_bidding_root = os.getenv("FRANKLINOPS_ONEDRIVE_BIDDING_ROOT", "")
         self.onedrive_attachments_root = os.getenv("FRANKLINOPS_ONEDRIVE_ATTACHMENTS_ROOT", "")
-        _cursor = "C:\\Users\\jerem\\.cursor\\projects"
-        self.superagents_root = os.getenv("FRANKLINOPS_SUPERAGENTS_ROOT", f"{_cursor}\\d-Superagents")
+        # Detect project root from this file (works from D: or F: or any drive)
+        _project_root = Path(__file__).resolve().parents[2]
+        _cursor = os.getenv("FRANKLINOPS_CURSOR_PROJECTS", str(Path.home() / ".cursor" / "projects"))
+        self.superagents_root = os.getenv("FRANKLINOPS_SUPERAGENTS_ROOT", str(_project_root))
         self.bid_zone_root = os.getenv("FRANKLINOPS_BID_ZONE_ROOT", f"{_cursor}\\d-XAI-BID-ZONE")
         self.franklin_os_root = os.getenv("FRANKLINOPS_FRANKLIN_OS_ROOT", f"{_cursor}\\d-Franklin-OS-local")
         self.jck_land_dev_root = os.getenv("FRANKLINOPS_JCK_LAND_DEV_ROOT", f"{_cursor}\\d-JCK-Land-Development")
@@ -58,9 +60,17 @@ class FranklinOpsSettings:
         self.openai_model = os.getenv("FRANKLINOPS_OPENAI_MODEL", "gpt-4")
         self.openai_temperature = _env_float("FRANKLINOPS_OPENAI_TEMPERATURE", 0.3)
         
-        # Legacy Ollama support (fallback if OpenAI not available)
+        # Ollama — local LLM. Simple: no OpenAI key? Use Ollama. No config needed.
         self.ollama_api_url = os.getenv("FRANKLINOPS_OLLAMA_API_URL", "http://localhost:11434/api/generate")
         self.ollama_model = os.getenv("FRANKLINOPS_OLLAMA_MODEL", "llama3")
+        _ollama_first = os.getenv("FRANKLINOPS_OLLAMA_FIRST", "").lower()
+        if _ollama_first in ("true", "1", "yes"):
+            self.ollama_first = True
+        elif _ollama_first in ("false", "0", "no"):
+            self.ollama_first = False
+        else:
+            # Auto: use Ollama when no OpenAI key (simple for everyone)
+            self.ollama_first = not bool((self.openai_api_key or "").strip())
 
         self.embeddings_model = os.getenv("FRANKLINOPS_EMBEDDINGS_MODEL", "all-MiniLM-L6-v2")
 
@@ -71,4 +81,19 @@ class FranklinOpsSettings:
 
         self.server_host = os.getenv("FRANKLINOPS_SERVER_HOST", "127.0.0.1")
         self.server_port = _env_int("FRANKLINOPS_SERVER_PORT", 8844)
+
+        # RBAC: when true, enforce role-based access on /api/* routes
+        self.rbac_enabled = os.getenv("FRANKLINOPS_RBAC_ENABLED", "false").lower() == "true"
+        # API keys (comma-separated); when set, Bearer token must match one
+        _keys = os.getenv("FRANKLINOPS_API_KEYS", "").strip()
+        self.api_keys = [k.strip() for k in _keys.split(",") if k.strip()] if _keys else []
+
+
+def validate_startup(settings: FranklinOpsSettings | None = None) -> list[str]:
+    """Validate critical env at boot; return list of warnings/errors."""
+    s = settings or FranklinOpsSettings()
+    errs: list[str] = []
+    if not s.db_path.parent.exists():
+        s.db_path.parent.mkdir(parents=True, exist_ok=True)
+    return errs
 

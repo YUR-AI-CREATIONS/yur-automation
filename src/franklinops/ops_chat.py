@@ -205,9 +205,10 @@ def ops_chat(
     openai_temperature: float = 0.3,
     ollama_api_url: str = "",
     ollama_model: str = "llama3",
+    ollama_first: bool = False,
     user_context: dict = None,
 ) -> dict[str, Any]:
-    """Enhanced ops chat with OpenAI intelligence and business context."""
+    """Enhanced ops chat. When ollama_first=True, use Ollama (sovereign/local) before OpenAI."""
     
     # Gather business intelligence
     business_context = _get_business_context(db)
@@ -223,12 +224,21 @@ def ops_chat(
     
     prompt = _build_business_prompt(question, hits, enhanced_context)
 
-    # Try OpenAI first, fallback to Ollama
+    # Try Ollama first when ollama_first (white-glove sovereign), else OpenAI first
     answer = None
     err = ""
     ai_provider = "none"
-    
-    if openai_api_key:
+
+    if ollama_first and ollama_api_url:
+        answer, err = _call_ollama_fallback(
+            api_url=ollama_api_url,
+            model=ollama_model,
+            prompt=prompt,
+            temperature=0.2,
+        )
+        ai_provider = "ollama" if answer else "ollama_failed"
+
+    if answer is None and openai_api_key:
         answer, err = _call_openai(
             api_key=openai_api_key,
             model=openai_model,
@@ -236,9 +246,8 @@ def ops_chat(
             temperature=openai_temperature,
         )
         ai_provider = "openai" if answer else "openai_failed"
-    
-    # Fallback to Ollama if OpenAI failed or not configured
-    if answer is None and ollama_api_url:
+
+    if answer is None and ollama_api_url and not ollama_first:
         answer, err = _call_ollama_fallback(
             api_url=ollama_api_url,
             model=ollama_model,
@@ -275,7 +284,7 @@ I found {len(hits)} relevant documents but couldn't process them with AI at the 
 - Recent tasks (7 days): {business_context.get('recent_tasks_7d', 0)}
 - Active projects: {business_context.get('active_projects', 0)}
 
-*To enable AI responses, configure your OpenAI API key in settings.*
+*To enable AI: set OPENAI_API_KEY or run Ollama locally (ollama serve, ollama pull llama3). Set FRANKLINOPS_OLLAMA_FIRST=true for sovereign mode.*
         """.strip()
         
         return {

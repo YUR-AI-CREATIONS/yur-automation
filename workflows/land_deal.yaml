@@ -1,0 +1,20 @@
+# Land Deal Workflow — DAG definition
+# parcel.discovered → zoning → cost → simulation → ranking
+
+name: land_deal
+description: Full land deal pipeline from parcel discovery to ranking
+
+nodes:
+  - name: zoning_assess
+    fn: zoning.assess
+  - name: cost_estimate
+    fn: cost.estimate
+  - name: roi_simulate
+    fn: roi.simulate
+  - name: opportunity_rank
+    fn: opportunity.rank
+
+edges:
+  - [zoning_assess, cost_estimate]
+  - [cost_estimate, roi_simulate]
+  - [roi_simulate, opportunity_rank]

@@ -26,7 +26,7 @@ def _parse_date(s: str) -> Optional[str]:
     for fmt in ("%Y-%m-%d", "%m/%d/%Y", "%m/%d/%y"):
         try:
             return datetime.strptime(raw, fmt).date().isoformat()
-        except Exception:
+        except (ValueError, TypeError):
             pass
     return None
 
@@ -778,7 +778,10 @@ def run_ar_reminders(db: OpsDB, audit: AuditLogger, approvals: ApprovalService, 
         customer_name = customer_name.strip() or ""
         to_email = (r["customer_email"] or "").strip().lower() if "customer_email" in r.keys() else ""
         if not to_email:
-            to_email = "customer@invoice.placeholder"  # Human must fill in
+            to_email = os.getenv("FRANKLINOPS_AR_REMINDER_PLACEHOLDER_EMAIL", "").strip()
+        if not to_email:
+            created.append({"invoice_id": r["id"], "status": "skipped", "reason": "no_customer_email"})
+            continue
 
         draft = generate_ar_reminder_draft(
             invoice_number=r["invoice_number"] or "(no #)",

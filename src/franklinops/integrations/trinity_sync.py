@@ -31,7 +31,7 @@ def sync_trinity_leads(
     db: OpsDB,
     audit: AuditLogger,
     *,
-    base_url: str = "https://yur-ai-api.onrender.com",
+    base_url: str | None = None,
     api_key: Optional[str] = None,
     limit: int = 200,
 ) -> dict[str, Any]:
@@ -43,12 +43,13 @@ def sync_trinity_leads(
     if not api_key:
         return {"ok": False, "error": "TRINITY_API_KEY not set", "fetched": 0, "created": 0, "updated": 0, "skipped": 0}
 
+    url = (base_url or os.getenv("TRINITY_API_BASE_URL", "https://yur-ai-api.onrender.com")).strip()
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
 
     try:
         with httpx.Client(timeout=30.0) as client:
             resp = client.get(
-                f"{base_url.rstrip('/')}/api/leads",
+                f"{url.rstrip('/')}/api/leads",
                 headers=headers,
                 params={"limit": limit} if limit else {},
             )

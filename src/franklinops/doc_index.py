@@ -108,13 +108,22 @@ class DocIndexPaths:
     meta_json_path: Path
 
 
-def default_index_paths(data_dir: Path) -> DocIndexPaths:
+def default_index_paths(data_dir: Path, tenant_id: str = "default") -> DocIndexPaths:
+    """Tenant-scoped index paths for multi-tenancy. Falls back to legacy root path for backward compat."""
     data_dir = Path(data_dir)
-    data_dir.mkdir(parents=True, exist_ok=True)
+    tid = tenant_id or "default"
+    tenant_dir = data_dir / "tenants" / tid
+    legacy_dir = data_dir  # backward compat: old single-tenant index at root
+    # Prefer tenant dir; if default tenant and legacy exists, use legacy for compat
+    if tid == "default" and (legacy_dir / "doc_index_meta.json").exists():
+        base = legacy_dir
+    else:
+        tenant_dir.mkdir(parents=True, exist_ok=True)
+        base = tenant_dir
     return DocIndexPaths(
-        index_faiss_path=data_dir / "doc_index.faiss",
-        vectors_npz_path=data_dir / "doc_index_vectors.npz",
-        meta_json_path=data_dir / "doc_index_meta.json",
+        index_faiss_path=base / "doc_index.faiss",
+        vectors_npz_path=base / "doc_index_vectors.npz",
+        meta_json_path=base / "doc_index_meta.json",
     )
 
 
@@ -132,20 +141,28 @@ def rebuild_doc_index(
     audit: AuditLogger,
     *,
     data_dir: Path,
+    tenant_id: str | None = None,
     embeddings_preference: str = "sentence-transformers:all-MiniLM-L6-v2",
     chunk_max_chars: int = 1400,
     chunk_overlap: int = 200,
 ) -> dict[str, Any]:
-    paths = default_index_paths(data_dir)
+    try:
+        from ..core.tenant import get_tenant_id
+        tid = tenant_id or get_tenant_id()
+    except ImportError:
+        tid = tenant_id or "default"
+    paths = default_index_paths(data_dir, tid)
 
-    # 1) Load artifacts to index
+    # 1) Load artifacts to index (tenant-scoped)
     artifact_rows = db.conn.execute(
         """
         SELECT id, source, path, birthmark, extracted_text
         FROM artifacts
-        WHERE status = 'ingested' AND extracted_text IS NOT NULL AND extracted_text != ''
+        WHERE (tenant_id = ? OR tenant_id IS NULL) AND status = 'ingested'
+          AND extracted_text IS NOT NULL AND extracted_text != ''
         ORDER BY ingested_at DESC
-        """
+        """,
+        (tid,),
     ).fetchall()
 
     # 2) Chunk + persist doc_chunks
@@ -153,7 +170,7 @@ def rebuild_doc_index(
     chunks_text: list[str] = []
 
     with db.tx() as conn:
-        conn.execute("DELETE FROM doc_chunks")
+        conn.execute("DELETE FROM doc_chunks WHERE COALESCE(tenant_id, 'default') = ?", (tid,))
 
         for art in artifact_rows:
             art_id = art["id"]
@@ -168,10 +185,10 @@ def rebuild_doc_index(
                 now = utcnow_iso()
                 conn.execute(
                     """
-                    INSERT INTO doc_chunks (id, artifact_id, chunk_index, text, birthmark, created_at, updated_at)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO doc_chunks (id, artifact_id, chunk_index, text, birthmark, created_at, updated_at, tenant_id)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     """,
-                    (chunk_id, art_id, idx, piece, birthmark, now, now),
+                    (chunk_id, art_id, idx, piece, birthmark, now, now, tid),
                 )
 
                 chunks_meta.append(
@@ -221,15 +238,15 @@ def rebuild_doc_index(
     }
     paths.meta_json_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    # 7) Persist run record
-    run_id = hashlib.sha256(f"{meta['created_at']}:{len(chunks_meta)}".encode("utf-8")).hexdigest()[:24]
+    # 7) Persist run record (tenant-scoped)
+    run_id = hashlib.sha256(f"{meta['created_at']}:{len(chunks_meta)}:{tid}".encode("utf-8")).hexdigest()[:24]
     with db.tx() as conn:
         conn.execute(
             """
             INSERT INTO doc_index_runs (
               id, created_at, embeddings_backend, index_backend,
-              artifacts_indexed, chunks_indexed, index_path, meta_path
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+              artifacts_indexed, chunks_indexed, index_path, meta_path, tenant_id
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 run_id,
@@ -240,6 +257,7 @@ def rebuild_doc_index(
                 int(len(chunks_meta)),
                 str(paths.index_faiss_path),
                 str(paths.meta_json_path),
+                tid,
             ),
         )
 
@@ -280,8 +298,14 @@ def search_doc_index(
     data_dir: Path,
     query: str,
     k: int = 5,
+    tenant_id: str | None = None,
 ) -> list[dict[str, Any]]:
-    paths = default_index_paths(data_dir)
+    try:
+        from ..core.tenant import get_tenant_id
+        tid = tenant_id or get_tenant_id()
+    except ImportError:
+        tid = tenant_id or "default"
+    paths = default_index_paths(data_dir, tid)
     if not paths.meta_json_path.exists() or not paths.vectors_npz_path.exists():
         raise FileNotFoundError("doc index not built yet")
 

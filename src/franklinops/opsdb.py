@@ -256,6 +256,9 @@ class OpsDB:
         self._conn.row_factory = sqlite3.Row
         self._conn.executescript(SCHEMA_SQL)
         self._conn.commit()
+        # Run migrations (multi-tenancy, etc.)
+        from .migrations import run_migrations
+        run_migrations(self)
 
     @property
     def conn(self) -> sqlite3.Connection:

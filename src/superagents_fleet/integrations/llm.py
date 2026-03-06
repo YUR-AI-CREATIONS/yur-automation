@@ -70,7 +70,7 @@ def _call_ollama(
 
 
 class LLMService:
-    """LLM caller with OpenAI primary, Ollama fallback."""
+    """LLM caller. When ollama_first=True, prefer Ollama (sovereign/local) over OpenAI."""
 
     def __init__(
         self,
@@ -79,25 +79,43 @@ class LLMService:
         openai_temperature: float = 0.3,
         ollama_api_url: Optional[str] = None,
         ollama_model: str = "llama3",
+        ollama_first: Optional[bool] = None,
     ):
         self.openai_api_key = (openai_api_key or os.getenv("OPENAI_API_KEY", "")).strip()
         self.openai_model = openai_model
         self.openai_temperature = openai_temperature
         self.ollama_api_url = (ollama_api_url or os.getenv("FRANKLINOPS_OLLAMA_API_URL", "http://localhost:11434/api/generate")).strip()
         self.ollama_model = ollama_model
+        if ollama_first is None:
+            ollama_first = os.getenv("FRANKLINOPS_OLLAMA_FIRST", "false").lower() in ("true", "1", "yes")
+        self.ollama_first = ollama_first
 
     def complete(
         self,
         prompt: str,
         system: Optional[str] = None,
         temperature: Optional[float] = None,
+        ollama_first: Optional[bool] = None,
     ) -> tuple[Optional[str], str]:
-        """Return (content, error). Prefer OpenAI; fallback to Ollama."""
+        """Return (content, error). When ollama_first, prefer Ollama (sovereign); else OpenAI first."""
+        use_ollama_first = ollama_first if ollama_first is not None else self.ollama_first
         temp = temperature if temperature is not None else self.openai_temperature
         messages = []
         if system:
             messages.append({"role": "system", "content": system})
         messages.append({"role": "user", "content": prompt})
+        full_prompt = (f"{system}\n\n{prompt}" if system else prompt)
+
+        if use_ollama_first and self.ollama_api_url:
+            content, err = _call_ollama(
+                api_url=self.ollama_api_url,
+                model=self.ollama_model,
+                prompt=full_prompt,
+                temperature=temp,
+            )
+            if content:
+                return content, ""
+            logger.warning(f"Ollama failed: {err}")
 
         if self.openai_api_key:
             content, err = _call_openai(
@@ -110,8 +128,7 @@ class LLMService:
                 return content, ""
             logger.warning(f"OpenAI failed: {err}")
 
-        if self.ollama_api_url:
-            full_prompt = (f"{system}\n\n{prompt}" if system else prompt)
+        if self.ollama_api_url and not use_ollama_first:
             content, err = _call_ollama(
                 api_url=self.ollama_api_url,
                 model=self.ollama_model,
@@ -127,13 +144,16 @@ class LLMService:
 def llm_completion(
     prompt: str,
     system: Optional[str] = None,
+    ollama_first: Optional[bool] = None,
     **kwargs: Any,
 ) -> tuple[Optional[str], str]:
-    """Convenience: create LLMService from env and complete."""
+    """Convenience: create LLMService from env and complete. ollama_first from FRANKLINOPS_OLLAMA_FIRST."""
+    if ollama_first is None:
+        ollama_first = os.getenv("FRANKLINOPS_OLLAMA_FIRST", "false").lower() in ("true", "1", "yes")
     svc = LLMService(
         openai_api_key=os.getenv("OPENAI_API_KEY"),
         openai_model=os.getenv("FRANKLINOPS_OPENAI_MODEL", "gpt-4"),
         ollama_api_url=os.getenv("FRANKLINOPS_OLLAMA_API_URL"),
         ollama_model=os.getenv("FRANKLINOPS_OLLAMA_MODEL", "llama3"),
     )
-    return svc.complete(prompt, system=system, **kwargs)
+    return svc.complete(prompt, system=system, ollama_first=ollama_first, **kwargs)

@@ -1,0 +1,16 @@
+# Deal Policy — policy-driven. Agents never decide. Policies decide.
+# Human readable. Auditable. Modifiable without code changes.
+
+deal_policy_v1:
+  constraints:
+    min_roi: 0.18
+    max_probability_of_loss: 0.12
+    max_capital: 20000000
+    max_duration_months: 36
+
+  escalation:
+    if_roi_between: [0.16, 0.18]
+    send_to: franklin_review
+
+  deny:
+    if_probability_of_loss_gt: 0.20

@@ -27,7 +27,7 @@ class FolderMapping:
 # OneDrive roots (when configured): 02BIDDING, 01PROJECTS, Attachments
 # Project Controls: c-00-Project-Controls-* (each log = separate Cursor workspace)
 # Main systems: d-Superagents, d-XAI-BID-ZONE (sales portal), d-Franklin-OS-local, d-JCK-Land-Development
-_CURSOR_PROJECTS = "C:\\Users\\jerem\\.cursor\\projects"
+_CURSOR_PROJECTS = os.getenv("FRANKLINOPS_CURSOR_PROJECTS", str(Path.home() / ".cursor" / "projects"))
 
 CANONICAL_FOLDER_MAPPING: tuple[FolderMapping, ...] = (
     # OneDrive (optional)

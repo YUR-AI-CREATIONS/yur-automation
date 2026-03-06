@@ -1,0 +1,36 @@
+# FranklinOps — Economic Intelligence Runtime
+# Build: docker build -f Dockerfile.franklinops -t franklinops:latest .
+# Run:   docker run -p 8844:8844 -v $(pwd)/data:/app/data franklinops:latest
+
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# System deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Python deps
+COPY requirements-minimal.txt .
+RUN pip install --no-cache-dir -r requirements-minimal.txt
+
+# App
+COPY src ./src
+COPY scripts ./scripts
+COPY policies ./policies
+COPY governance-policies.json .
+
+# Data dir
+RUN mkdir -p /app/data/franklinops /app/data/fabric/raw /app/data/fabric/clean /app/data/fabric/features /app/data/fabric/runs /app/data/fabric/evidence
+
+ENV FRANKLINOPS_DB_PATH=/app/data/franklinops/ops.db
+ENV FRANKLINOPS_AUDIT_JSONL_PATH=/app/data/franklinops/audit.jsonl
+ENV FRANKLINOPS_SERVER_PORT=8844
+
+EXPOSE 8844
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+    CMD curl -f http://localhost:8844/healthz || exit 1
+
+CMD ["python", "-m", "uvicorn", "src.franklinops.server:app", "--host", "0.0.0.0", "--port", "8844"]

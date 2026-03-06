@@ -267,9 +267,14 @@ class AutonomyGate:
                 logger.warning(f"Missing evidence field: {field}")
                 return False
 
-        allow_unverified = self._env_bool("ALLOW_UNVERIFIED_MISSIONS", default=False) or self._env_bool(
-            "SKIP_PQC_VERIFICATION",
-            default=False,
+        # Bypass flags: dev-only; ignored when FRANKLINOPS_ENV=production
+        is_production = os.getenv("FRANKLINOPS_ENV", "").lower() == "production"
+        allow_unverified = (
+            not is_production
+            and (
+                self._env_bool("ALLOW_UNVERIFIED_MISSIONS", default=False)
+                or self._env_bool("SKIP_PQC_VERIFICATION", default=False)
+            )
         )
 
         # 1) Timestamp replay window check

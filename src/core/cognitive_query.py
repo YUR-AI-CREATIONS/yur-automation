@@ -22,9 +22,10 @@ METADATA_PATH = "data/output/vector_index.json"
 MODEL_NAME = 'all-MiniLM-L6-v2'
 TOP_K = 3
 
-# LLM Configuration (Ollama)
-LLM_API_URL = "http://localhost:11434/api/generate"
-LLM_MODEL = "llama3"
+# LLM Configuration (Ollama) — use env for overrides
+import os
+LLM_API_URL = os.getenv("FRANKLINOPS_OLLAMA_API_URL", "http://localhost:11434/api/generate")
+LLM_MODEL = os.getenv("FRANKLINOPS_OLLAMA_MODEL", "llama3")
 LLM_ENABLED = True
 LLM_TEMPERATURE = 0.2
 LLM_CONTEXT_WINDOW = 4096

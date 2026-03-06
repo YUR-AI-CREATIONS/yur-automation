@@ -28,39 +28,31 @@ Report is written to `scripts/verification_report.txt`.
 | **3. Governance Adapter** | Audit logging | GROKSTMATE actions are logged to FranklinOps audit |
 | **4. Pilot Simulation** | run_pilot() | Full pilot runs with GROKSTMATE phase |
 | | GROKSTMATE phase | Estimate produced in pilot ($782K demo) |
-| **5. GROKSTMATE Tests** | test_integration.py | Cost, Project, TaskAgent, BotDeployment all pass |
+| **5. Flow Interface** | FlowRegistry, NYSE | Universal plug-in, hardening |
+| **6. Runtime Kernel** | boot, invoke, shutdown | Kernel lifecycle and flow dispatch |
+| **7. Governance Provenance** | compute_governance_hash | 50-year verifiability |
+| **8. GROKSTMATE Tests** | test_integration.py | Cost, Project, TaskAgent, BotDeployment all pass |
 
 ---
 
-## Latest Run (2026-03-03)
+## Latest Run (2026-03-05)
 
 ```
 ======================================================================
 FranklinOps + GROKSTMATE Integration Verification
 ======================================================================
-Generated: 2026-03-03T15:37:14+00:00
+Generated: 2026-03-05T03:05:31+00:00
 
 1. GROKSTMATE Standalone Tests
-  ✓ PASS  CostEstimator         total_estimate=$310,500.00
-  ✓ PASS  ProjectManager        8 tasks created
-
 2. Integration Bridge Tests
-  ✓ PASS  Bridge import         GROKSTMATE_AVAILABLE
-  ✓ PASS  Bridge.estimate_project   total_estimate=$782,000.00
-  ✓ PASS  Bridge.create_project_plan 8 tasks
-
 3. Governance Adapter Tests (with Audit)
-  ✓ PASS  Governance Adapter (audit)  +1 audit events
-
 4. FranklinOps Pilot Simulation
-  ✓ PASS  Pilot run              completed
-  ✓ PASS  GROKSTMATE phase       estimate=$782,000.00
+5. Universal Flow Interface Tests
+6. Runtime Kernel Tests (boot, invoke, shutdown)
+7. Governance Provenance (50-Year Verifiability)
+8. GROKSTMATE Async Tests
 
-5. GROKSTMATE Async Tests
-  ✓ PASS  GROKSTMATE test_integration.py  exit=0
-  Tests passed: 4/4 (Cost, Project, TaskAgent, BotDeployment)
-
-Summary: Passed 9, Failed 0
+Summary: Passed 18, Failed 0
 ======================================================================
 ```
 

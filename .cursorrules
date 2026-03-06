@@ -1,0 +1,26 @@
+# FranklinOps / Trinity — Cursor Rules
+
+## Code Quality
+- Use type hints on all public functions
+- Add docstrings to modules, classes, and public functions
+- Prefer dataclasses over dicts for structured data
+- Use `__all__` in modules to define public API
+
+## Flow Interface
+- Flow IDs: `[a-z][a-z0-9_-]*`, max 64 chars
+- Handlers must return `dict` (never None)
+- All flows pass through hardening: sanitize, rate limit, circuit breaker, retry, audit
+
+## Security
+- Never commit credentials; use env vars or keyring
+- Sanitize all user input before processing
+- Audit every flow invocation and governance decision
+
+## Migrations
+- Idempotent: handle "duplicate column", "already exists"
+- One logical change per migration
+- Use `INSERT OR IGNORE` for _migrations table
+
+## Testing
+- Run `python scripts/verify_integration.py` before commits
+- Flow tests in verification: plug, invoke, hardening

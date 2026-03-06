@@ -80,3 +80,6 @@ uuid6==1.0.4
 # FranklinOpsHub extras
 pypdf
 keyring
+
+# Event Bus (optional — for reactive agent swarms)
+# nats-py

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FranklinOps — Workflow & Monetization Diagrams</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      margin: 0;
+      padding: 24px;
+      background: #0a1628;
+      color: #e8eef4;
+      line-height: 1.6;
+    }
+    h1 { color: #e8c547; margin-bottom: 8px; }
+    h2 { color: #9eb5a8; border-bottom: 1px solid rgba(232,197,71,0.3); padding-bottom: 8px; margin-top: 32px; }
+    .diagram {
+      background: rgba(18,45,32,0.4);
+      border: 1px solid rgba(232,197,71,0.2);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+    .mermaid { display: flex; justify-content: center; }
+    .mermaid svg { max-width: 100%; }
+    a { color: #e8c547; }
+    .note { color: #9eb5a8; font-size: 14px; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>FranklinOps — Workflow & Monetization</h1>
+  <p class="note">
+    <strong>To view:</strong> Double-click this file to open in your browser. If diagrams don't load (CORS), run:
+    <code style="background:#1a3a2a;padding:4px 8px;border-radius:4px;">cd F:\Superagents\docs && python -m http.server 8888</code>
+    then open <a href="http://localhost:8888/workflow_diagrams.html">http://localhost:8888/workflow_diagrams.html</a>
+  </p>
+
+  <h2>1. Full System Workflow</h2>
+  <div class="diagram">
+    <div class="mermaid">
+flowchart TB
+    subgraph USER["USER LAYER"]
+        CMD[Franklin Command Line / Natural Language]
+        UI[Web UI: /ui, /ui/development, /ui/construction, /ui/land_dev]
+    end
+
+    subgraph ORCH["ORCHESTRATION LAYER"]
+        HUB[FranklinOps Hub]
+        FLOWS[Flow Registry: echo, nyse_sim, pay_app_tracker, monte_carlo, development_pipeline]
+    end
+
+    subgraph KERNEL["RUNTIME KERNEL"]
+        BOOT[Boot / Shutdown]
+        INVOKE[Invoke = Syscall]
+        HARDEN[Flow Hardening: sanitize, rate limit, circuit breaker, retry]
+    end
+
+    subgraph BUS["EVENT BUS In-Memory"]
+        PUB[publish]
+        SUB[subscribe]
+        TRACE[trace_id causality]
+    end
+
+    subgraph DAG["DAG PIPELINE"]
+        ZONING[zoning_assess]
+        COST[cost_estimate]
+        SIM[roi_simulate]
+        POLICY[policy_evaluate]
+        RANK[opportunity_rank]
+    end
+
+    subgraph POLICY_ENG["POLICY ENGINE"]
+        APPROVE[approve]
+        DENY[deny]
+        ESCALATE[escalate]
+    end
+
+    subgraph DATA["DATA FABRIC"]
+        RAW[raw/]
+        CLEAN[clean/]
+        FEAT[features/]
+        RUNS[runs/]
+    end
+
+    subgraph AUDIT["AUDIT & PROVENANCE"]
+        LOG[audit.jsonl]
+        GOV[governance hash]
+    end
+
+    subgraph VERTICALS["VERTICALS"]
+        CONSTR[FranklinOps for Construction]
+        LAND[Land Development Intelligence]
+        SALES[Sales / Leads]
+        FIN[Finance / AP-AR]
+    end
+
+    CMD --> HUB
+    UI --> HUB
+    HUB --> FLOWS
+    FLOWS --> INVOKE
+    INVOKE --> HARDEN
+    HARDEN --> DAG
+    DAG --> ZONING --> COST --> SIM --> POLICY --> RANK
+    POLICY --> POLICY_ENG
+    DAG --> BUS
+    BUS --> TRACE
+    HUB --> DATA
+    HUB --> AUDIT
+    FLOWS --> VERTICALS
+    </div>
+  </div>
+
+  <h2>2. Development Pipeline Flow (Land Deal)</h2>
+  <div class="diagram">
+    <div class="mermaid">
+flowchart LR
+    subgraph INPUT["INPUT"]
+        P[Parcel / Project Spec]
+    end
+
+    subgraph PIPELINE["PIPELINE DAG"]
+        A[zoning_assess]
+        B[cost_estimate]
+        C[roi_simulate]
+        D[policy_evaluate]
+        E[opportunity_rank]
+    end
+
+    subgraph OUTPUT["OUTPUT"]
+        O[Ranked Opportunity + trace_id]
+    end
+
+    P --> A --> B --> C --> D --> E --> O
+    </div>
+  </div>
+
+  <h2>3. The Circle</h2>
+  <div class="diagram">
+    <div class="mermaid">
+flowchart LR
+    IN[INCOMING Docs leads invoices]
+    OUT[OUTGOING Emails reports approvals]
+    COLL[COLLECTION Index audit store]
+    REGEN[REGENERATING Metrics backlog]
+
+    IN --> OUT --> COLL --> REGEN --> IN
+    </div>
+  </div>
+
+  <h2>4. Monetizable Path</h2>
+  <div class="diagram">
+    <div class="mermaid">
+flowchart TB
+    subgraph PRODUCT["PRODUCT LAYERS"]
+        CORE[FranklinOps Core: OS for Business]
+        CONSTR_V[FranklinOps for Construction]
+        LAND_V[Development Intelligence]
+        API[API / Flows / Integrations]
+    end
+
+    subgraph REVENUE["REVENUE STREAMS"]
+        S1[1. SaaS Subscription Per-seat per-tenant]
+        S2[2. Vertical Licenses Construction Land Dev]
+        S3[3. API Usage Credits Pipeline runs Monte Carlo]
+        S4[4. Professional Services Deployment custom flows]
+        S5[5. Data Intelligence Ranked opportunities reports]
+    end
+
+    subgraph BUYERS["TARGET BUYERS"]
+        B1[GCs / Developers]
+        B2[Land Developers]
+        B3[Construction Finance]
+        B4[Real Estate Funds]
+    end
+
+    CORE --> S1
+    CONSTR_V --> S2
+    LAND_V --> S2
+    API --> S3
+    CORE --> S4
+    LAND_V --> S5
+
+    S1 --> B1
+    S2 --> B1
+    S2 --> B2
+    S2 --> B3
+    S5 --> B2
+    S5 --> B4
+    </div>
+  </div>
+
+  <h2>5. Sales Agent Playbook</h2>
+  <div class="diagram">
+    <div class="mermaid">
+flowchart TB
+    subgraph AGENT["SALES AGENT CONDUCT"]
+        K1[Know the value prop]
+        K2[Know the vertical]
+        K3[Know the objection]
+    end
+
+    subgraph SCRIPT["SCRIPT / ELEVATOR"]
+        E1["Documents in. Decisions out. Humans in control."]
+        E2["Bloomberg Terminal for real estate development."]
+        E3["Operating system for business - not another app."]
+    end
+
+    subgraph DEMO["DEMO FLOW"]
+        D1[Show /ui/boot]
+        D2[Show /ui/construction or /ui/development]
+        D3[Run pipeline show trace_id]
+        D4[Show audit trail]
+    end
+
+    subgraph CLOSE["CLOSE"]
+        C1[Free trial / pilot]
+        C2[Per-seat or per-project]
+        C3[API / integration]
+    end
+
+    AGENT --> SCRIPT
+    SCRIPT --> DEMO
+    DEMO --> CLOSE
+    </div>
+  </div>
+
+  <h2>6. End-to-End Flow (User to Money)</h2>
+  <div class="diagram">
+    <div class="mermaid">
+flowchart LR
+    U[User signs up]
+    CONFIG[Configure roots folders]
+    INGEST[Ingest documents]
+    USE[Use flows approvals chat]
+    VALUE[Value time saved better decisions]
+    PAY[Pay subscription license]
+
+    U --> CONFIG --> INGEST --> USE --> VALUE --> PAY
+    </div>
+  </div>
+
+  <h2>7. Agent Decision Tree</h2>
+  <div class="diagram">
+    <div class="mermaid">
+flowchart TB
+    Q{What does prospect do?}
+    Q -->|Construction| CONSTR[Pitch FranklinOps for Construction]
+    Q -->|Land development| LAND[Pitch Development Intelligence]
+    Q -->|General ops| CORE[Pitch Core Hub]
+    Q -->|Integrator / API| API[Pitch API / Flows]
+
+    CONSTR -->|Pain: pay apps liens| DEMO[Demo /ui/construction]
+    LAND -->|Pain: deal selection| DEMO2[Demo /ui/development + pipeline]
+    CORE -->|Pain: docs approvals| DEMO3[Demo /ui/enhanced]
+    API -->|Pain: automation| DEMO4[Demo POST /api/flows invoke]
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#1a3a2a',
+        primaryTextColor: '#e8eef4',
+        primaryBorderColor: '#e8c547',
+        lineColor: '#9eb5a8',
+        secondaryColor: '#0d2e1c',
+        tertiaryColor: '#082418'
+      }
+    });
+  </script>
+</body>
+</html>

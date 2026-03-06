@@ -1,0 +1,37 @@
+# FranklinOps — Run with docker-compose -f docker-compose.franklinops.yml up
+# Optional: NATS for event bus. Uncomment nats service and NATS_URL to use.
+
+version: "3.8"
+
+services:
+  franklinops:
+    build:
+      context: .
+      dockerfile: Dockerfile.franklinops
+    ports:
+      - "8844:8844"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - FRANKLINOPS_DB_PATH=/app/data/franklinops/ops.db
+      - FRANKLINOPS_AUDIT_JSONL_PATH=/app/data/franklinops/audit.jsonl
+      # - NATS_URL=nats://nats:4222  # Uncomment when using NATS
+    # depends_on:
+    #   - nats  # Uncomment when using NATS
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8844/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # Optional: NATS event bus
+  # nats:
+  #   image: nats:2.10-alpine
+  #   ports:
+  #     - "4222:4222"
+  #   healthcheck:
+  #     test: ["CMD", "wget", "-q", "--spider", "http://localhost:8222/healthz"]
+  #     interval: 10s
+  #     timeout: 3s
+  #     retries: 3
