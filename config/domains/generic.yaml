@@ -1,0 +1,48 @@
+# Universal Spine — Generic Domain Profile
+# Default profile for non-specialized deployments
+
+domain: generic
+description: Universal default configuration
+
+# Data storage
+data_dir: data/generic
+db_path: data/generic/spine.db
+audit_jsonl_path: data/generic/audit.jsonl
+
+# LLM configuration
+llm:
+  ollama_first: true
+  ollama_api_url: http://localhost:11434/api/generate
+  ollama_model: llama3
+  openai_api_key: ""
+  openai_model: gpt-4
+  openai_temperature: 0.3
+  embeddings_model: all-MiniLM-L6-v2
+
+# Governance
+governance:
+  default_authority_level: SEMI_AUTO
+  default_governance_scope: internal
+  risk_max_approval_amount: 5000.0
+  rate_limit_per_hour: 200
+  max_cost_per_mission: 1000.0
+
+# UI and UX
+ui:
+  enable_proactive_assistance: true
+  enable_onboarding_wizard: true
+  user_experience_level: beginner
+
+# Server
+server:
+  host: 127.0.0.1
+  port: 8844
+
+# Security
+security:
+  rbac_enabled: false
+  api_keys: []
+  air_gap_mode: false
+
+# Features (empty = all enabled)
+features: []
