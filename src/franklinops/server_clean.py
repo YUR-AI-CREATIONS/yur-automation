@@ -26,7 +26,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 try:
-    from spokes.core_ui import generate_core_home_page, generate_loop_page
+    from src.spokes.core_ui import generate_core_home_page, generate_loop_page
 except ImportError:
     # Fallback if import fails
     def generate_core_home_page():
