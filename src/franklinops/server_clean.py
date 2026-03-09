@@ -68,6 +68,17 @@ async def health_check() -> dict[str, str]:
     }
 
 
+@app.get("/favicon.ico")
+async def favicon():
+    """Favicon endpoint (prevents 404 errors)"""
+    # Return a simple SVG favicon
+    svg = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <rect fill="#e8c547" width="100" height="100"/>
+        <text x="50" y="65" font-size="70" font-weight="bold" text-anchor="middle" fill="#0a1b0f">F</text>
+    </svg>"""
+    return JSONResponse(content=svg, media_type="image/svg+xml")
+
+
 @app.get("/api/status")
 async def api_status() -> dict[str, Any]:
     """API status and system info"""
