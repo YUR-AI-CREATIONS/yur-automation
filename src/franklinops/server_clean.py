@@ -3,12 +3,15 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
 try:
-    from src.spokes.core_ui import generate_core_home_page, generate_loop_page
+    from src.spokes.os_dashboard import generate_os_dashboard, generate_settings_page
 except:
-    def generate_core_home_page():
-        return "<h1>FranklinOps</h1>"
-    def generate_loop_page():
-        return "<h1>Loop</h1>"
+    try:
+        from spokes.os_dashboard import generate_os_dashboard, generate_settings_page
+    except:
+        def generate_os_dashboard():
+            return "<h1>FranklinOps</h1><p>Dashboard loading...</p>"
+        def generate_settings_page():
+            return "<h1>Settings</h1>"
 
 try:
     from src.spokes.construction import construction_dashboard, pay_app_tracker
@@ -34,15 +37,19 @@ async def status():
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
-    return "<script>location.href='/ui'</script>"
+    return generate_os_dashboard()
 
 @app.get("/ui", response_class=HTMLResponse)
-async def home():
-    return generate_core_home_page()
+async def dashboard():
+    return generate_os_dashboard()
+
+@app.get("/settings", response_class=HTMLResponse)
+async def settings():
+    return generate_settings_page()
 
 @app.get("/ui/loop", response_class=HTMLResponse)
 async def loop():
-    return generate_loop_page()
+    return generate_os_dashboard()
 
 @app.get("/api/construction/dashboard")
 async def c_dash():
