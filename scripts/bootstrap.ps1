@@ -11,7 +11,7 @@ $env:FRANKLINOPS_DB_PATH = Join-Path $Root "data\franklinops\ops.db"
 New-Item -ItemType Directory -Force -Path $env:FRANKLINOPS_DATA_DIR | Out-Null
 
 Write-Host ""
-Write-Host "  FRANKLINOPS - All-in-One Bootstrap" -ForegroundColor Cyan
+Write-Host "  FRANKLINOPS - Universal Orchestration OS" -ForegroundColor Cyan
 Write-Host ""
 
 # Pre-flight: warn if winget might be busy (another installer running)
@@ -111,7 +111,7 @@ foreach ($m in $lines) {
 
 # Run
 Write-Host "  Starting... Browser opens in 5s." -ForegroundColor Green
-Write-Host "  Having trouble? See TROUBLESHOOTING.md" -ForegroundColor Gray
+Write-Host "  Visit http://localhost:8844/ui" -ForegroundColor Gray
 Write-Host ""
-Start-Job { Start-Sleep 5; Start-Process "http://127.0.0.1:8844/ui/boot" } | Out-Null
-& $py -m uvicorn src.franklinops.server:app --host 127.0.0.1 --port 8844
+Start-Job { Start-Sleep 5; Start-Process "http://127.0.0.1:8844/ui" } | Out-Null
+& $py -m uvicorn src.franklinops.server_clean:app --host 127.0.0.1 --port 8844
