@@ -69,11 +69,11 @@ if (-not (Get-Command ollama -ErrorAction SilentlyContinue)) {
     $env:Path = $machinePath + ";" + $userPath
 }
 
-# Deps
-& $py -m pip install -r requirements-minimal.txt -q 2>$null
+# Deps (using ultra-minimal to avoid Rust compilation issues)
+& $py -m pip install -r requirements-ultra-minimal.txt -q 2>$null
 if ($LASTEXITCODE -ne 0) {
     Write-Host "  Pip install had issues. Retrying..." -ForegroundColor Yellow
-    & $py -m pip install -r requirements-minimal.txt
+    & $py -m pip install -r requirements-ultra-minimal.txt
     if ($LASTEXITCODE -ne 0) {
         Write-Host "  Pip failed. See TROUBLESHOOTING.md" -ForegroundColor Red
         Read-Host "  Press Enter to exit"
