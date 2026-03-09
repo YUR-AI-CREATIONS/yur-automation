@@ -34,7 +34,22 @@ except ImportError:
     def generate_loop_page():
         return "<h1>Loop</h1><p>Coming soon</p>"
 
-# Configure logging
+# Import real flows
+try:
+    from src.core.kernel import RuntimeKernel
+    from src.spokes.construction import construction_dashboard, pay_app_tracker
+    from src.spokes.sales import scan_sales_pipeline, rank_opportunities
+    from src.spokes.finance import ap_intake_run, ar_aging_report
+    KERNEL_AVAILABLE = True
+except ImportError:
+    KERNEL_AVAILABLE = False
+    construction_dashboard = lambda inp: {'status': 'unavailable'}
+    pay_app_tracker = lambda inp: {'status': 'unavailable'}
+    scan_sales_pipeline = lambda inp: {'status': 'unavailable'}
+    rank_opportunities = lambda inp: {'status': 'unavailable'}
+    ap_intake_run = lambda inp: {'status': 'unavailable'}
+    ar_aging_report = lambda inp: {'status': 'unavailable'}
+\n\n# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("franklinops")
 
@@ -252,6 +267,84 @@ class LoopStartRequest(BaseModel):
     compose_ports: list[str] = Field(default=["flow", "fleet"])
     distribute_destinations: list[str] = Field(default=["filesystem"])
 
+
+# ============================================================================
+# REAL DOMAIN ENDPOINTS (invoke actual flows)
+# ============================================================================
+
+@app.get("/api/construction/dashboard")
+async def api_construction_dashboard() -> dict[str, Any]:
+    """Get construction project dashboard"""
+    return construction_dashboard({})
+
+@app.get("/api/construction/pay-apps")
+async def api_pay_apps() -> dict[str, Any]:
+    """Track pay applications"""
+    return pay_app_tracker({})
+
+@app.get("/api/sales/pipeline")
+async def api_sales_pipeline() -> dict[str, Any]:
+    """Get sales pipeline status"""
+    return scan_sales_pipeline({})
+
+@app.get("/api/sales/opportunities")
+async def api_sales_opportunities() -> dict[str, Any]:
+    """Get ranked sales opportunities"""
+    return rank_opportunities({})
+
+@app.get("/api/finance/ap-intake")
+async def api_finance_ap() -> dict[str, Any]:
+    """Get AP intake status"""
+    return ap_intake_run({})
+
+@app.get("/api/finance/ar-aging")
+async def api_finance_ar() -> dict[str, Any]:
+    """Get AR aging report"""
+    return ar_aging_report({})
+
+
+# ============================================================================
+# ORCHESTRATION ENDPOINTS
+# ============================================================================
+
+# ============================================================================
+# REAL DOMAIN ENDPOINTS (invoke actual flows)
+# ============================================================================
+
+@app.get("/api/construction/dashboard")
+async def api_construction_dashboard() -> dict[str, Any]:
+    """Get construction project dashboard"""
+    return construction_dashboard({})
+
+@app.get("/api/construction/pay-apps")
+async def api_pay_apps() -> dict[str, Any]:
+    """Track pay applications"""
+    return pay_app_tracker({})
+
+@app.get("/api/sales/pipeline")
+async def api_sales_pipeline() -> dict[str, Any]:
+    """Get sales pipeline status"""
+    return scan_sales_pipeline({})
+
+@app.get("/api/sales/opportunities")
+async def api_sales_opportunities() -> dict[str, Any]:
+    """Get ranked sales opportunities"""
+    return rank_opportunities({})
+
+@app.get("/api/finance/ap-intake")
+async def api_finance_ap() -> dict[str, Any]:
+    """Get AP intake status"""
+    return ap_intake_run({})
+
+@app.get("/api/finance/ar-aging")
+async def api_finance_ar() -> dict[str, Any]:
+    """Get AR aging report"""
+    return ar_aging_report({})
+
+
+# ============================================================================
+# ORCHESTRATION ENDPOINTS
+# ============================================================================
 
 @app.post("/api/loop/run")
 async def start_loop(req: LoopStartRequest) -> dict[str, Any]:
